@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Doc</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <style>
+        h3 {
+            font-weight: 700;
+        }
+        p, ul.params {
+            margin-block-start: 10px;
+            margin-block-end: 10px;
+        }
+        ul.params {
+            list-style-type: none;
+        }
+        dl.main>dt::before{
+            content: '-';
+            display: inline-block;
+            margin-right: 0.3em;
+        }
+        dt {
+            font-weight: 600;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.95rem;
+        }
+        dd {
+            margin-inline-end: 40px;
+            margin-block-end: 50px;
+        }
+        @media(max-width: 600px) {
+            p, ul.params {
+                margin-block-start: 5px;
+                margin-block-end: 5px;
+            }
+            dd {
+                margin-inline-start: 0;
+                margin-inline-end: 0;
+                margin-block-end: 30px;
+            }
+            dt {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-title">
+        <div class="side-button">
+            btn
+        </div>
+        <h1>String Docs</h1>
+    </div>
+    <div class="main-content">
+        <h1>
+            Reference
+        </h1>
+        <h3 id="default-constructor">Constructors:</h3>
+        <dl class="main">
+            <dt>string()</dt>
+            <dd>
+                <p>
+                    This is the default constructor which enables a string
+                    object to be created without supplying any initial values.
+                    The syntax is straighforward:
+                </p>
+                <div class="code-block">string str;</div>
+                <p id="fill-constructor">
+                    This creates an empty string with size 0 containing only
+                    the null terminating character.
+                </p>
+            </dd>
+            <dt>string(char ch, size_t size)</dt>
+            <dd>
+                <p>
+                    Creates a string of the given size and fills it with
+                    character ch.
+                </p>
+                <div class="code-block">string lines{'-', 10};
+std::cout &lt;&lt; lines;</div>
+                <p>The above will generate the following output:</p>
+                <div class="code-block output" id="cstring-constructor">----------</div>
+                <p></p>
+            </dd>
+            <dt>string(const char* str)</dt>
+            <dd>
+                <p id="stdstring-constructor">
+                    Creates a string from a const char* (C-string). The size
+                    of the C-string is found out and a string is created with
+                    the same size and the contents of the C-string are copied
+                    into the string one character by character.
+                </p>
+            </dd>
+            <dt>string(const std::string& str)</dt>
+            <dd>
+                <p id="copy-constructor">
+                    Creates a string from an existing std::string object. The
+                    c_str() method of the std::string class is used to get the
+                    underlying C-string from the std::string and then the
+                    C-string is used to create a string object.
+                </p>
+            </dd>
+            <dt>string(const string& src)</dt>
+            <dd>
+                <p id="move-constructor">
+                    Copy constructs a string object from an existing string
+                    object. It creates a new string object of the same size as
+                    the string src and then copies the contents of src to the
+                    new string character by character.
+                </p>
+            </dd>
+            <dt>string(string&& src)</dt>
+            <dd>
+                <p>
+                    Move constructs a string object from an existing String
+                    object. No new memory is allocated in this process as it
+                    is simply a transfer of ownership of the memory allocated
+                    for the existing string from the existing string object
+                    src to the new string object being created.
+                </p>
+            </dd>
+        </dl>
+        <h3 id="string-size">Member functions</h3>
+        <dl class="main">
+            <dt>size_t size() const</dt>
+            <dd>
+                <p id="c-str">
+                    Returns the current size of the string excluding the null
+                    character.
+                </p>
+            </dd>
+            <dt>const char* c_str() const</dt>
+            <dd>
+                <p>
+                    Returns a const char pointer to the underlying string in the
+                    string object. The string will be null terminated so it can
+                    be used wherever a C-string is required for example while
+                    opening a file the name of the file has to be given as a
+                    C-string. There we can use the c_str() method to pass a
+                    C-string instead of the entire string object to get the job
+                    done.
+                </p>
+                <p>
+                    The same is demonstrated below:
+                </p>
+                <div class="code-block">#include &lt;fstream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string file_name;
+    std::cout &lt;&lt; "Enter the file name: ";
+    std::cin >> file_name;
+
+    <comment>
+    // Using the c_str() method to pass the
+    </comment>
+    std::ifstream file(file_name.c_str());
+
+    if (file)
+        std::cout &lt;&lt; "The file exists\n";
+    else
+        std::cout &lt;&lt; "The file does not exist\n";
+    file.close();
+    return 0;
+}</div>
+            <p id="is-empty"></p>
+            </dd>
+            <p></p>
+            <dt>bool is_empty() const</dt>
+            <dd>
+                <p>
+                    Used to check whether the string is empty or not. Returns
+                    a boolean value indicating the same.
+                </p>
+                <p id="is-alpha">
+                    By the way the string
+                    class is implemented, no string object is truly empty
+                    since the "empty" string object contains one null
+                    character which has to be present for compatibility
+                    with C-strings.
+                </p>
+            </dd>
+            <dt>bool is_alpha() const</dt>
+            <dd>
+                <p id="is-numeric">
+                    Checks whether the string is made up of only alphabetic
+                    characters i.e., the characters 'a-z' and 'A-Z'. Will
+                    always return false if the string is empty.
+                </p>
+            </dd>
+            <dt>bool is_numeric() const</dt>
+            <dd>
+                <p id="is-alnum">
+                    Checks whether the string is made up of only numeric
+                    characters i.e., the characters '0-9'. Will always return
+                    false if the string is empty.
+                </p>
+            </dd>
+            <dt>bool is_alnum() const</dt>
+            <dd>
+                <p id="first-word">
+                    Checks whether the string is made up of only alphanumeric
+                    characters i.e., the characters 'a-z', 'A-Z' and '0-9'.
+                    Will always return false if the string is empty.
+                </p>
+            </dd>
+            <dt>string first_word() const</dt>
+            <dd>
+                <p>
+                    Returns a new string containing only the first word from the
+                    current string. Will return an empty string if the string is
+                    empty or if the string contains only whitespace characters.
+                    Any whitespaces at the beginning of the string will be
+                    ignored and the first word after all the whitespace is
+                    returned.
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string full_name;
+    std::cout &lt;&lt; "Enter your full name: ";
+    std::cin >> full_name;
+    std::cout &lt;&lt; "First name: " &lt;&lt; full_name.first_word() &lt;&lt; '\n';
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div id="last-word" class="code-block output">Enter your full name: Steve Rogers
+First name: Steve</div>
+                <p></p>
+            </dd>
+            <dt>string last_word() const</dt>
+            <dd>
+                <p>
+                    Returns a new string containing only the last word from the
+                    current string. Will return an empty string if the string is
+                    empty or if the string contains only whitespace characters.
+                    Any whitespaces at the end of the string will be ignored
+                    and the first word beyond all the whitespace is returned.
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string full_name;
+    std::cout &lt;&lt; "Enter your full name: ";
+    std::cin >> full_name;
+    std::cout &lt;&lt; "Last name: " &lt;&lt; full_name.last_word() &lt;&lt; '\n';
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div id="get-lower" class="code-block output">Enter your full name: Steve Rogers
+Last name: Rogers</div>
+                <p></p>
+            </dd>
+            <dt>string get_lower() const</dt>
+            <dd>
+                <p>
+                    This method generates and returns a new string from the
+                    existing string containing the same characters but all
+                    alphabetical characters are converted to lowercase. The
+                    original string is unchanged and non-alphabetical
+                    characters are left alone.
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string all_caps{"WHY ARE YOU SHOUTING?!"};
+    std::cout &lt;&lt; all_caps.get_lower() &lt;&lt; '\n';
+
+    <comment>// The original string will remain unchanged</comment>
+    std::cout &lt;&lt; all_caps &lt;&lt; '\n';
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div id="get-upper" class="code-block output">why are you shouting?!
+WHY ARE YOU SHOUTING?!</div>
+            </dd>
+            <p></p>
+            <dt>string get_upper() const</dt>
+            <dd>
+                <p>
+                    This method generates and returns a new string from the
+                    existing string containing the same characters but all
+                    alphabetical characters are converted to uppercase. The
+                    original string is unchanged and non-alphabetical
+                    characters are left alone.
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string lowercase{"gentle and meek"};
+    std::cout &lt;&lt; lowercase.get_upper() &lt;&lt; '\n';
+
+    <comment>// The original string will remain unchanged</comment>
+    std::cout &lt;&lt; lowercase &lt;&lt; '\n';
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div id="to-lower" class="code-block output">GENTLE AND MEEK
+gentle and meek</div>
+                <p></p>
+            </dd>
+            <dt>string& to_lower()</dt>
+            <dd>
+                <p>
+                    This method modifies the characters of the existing string
+                    in place and returns a reference to the modified string
+                    object. All the alphabetical characters are converted to
+                    lowercase and other characters are left as it is.
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string all_caps{"WHY ARE YOU SHOUTING?!"};
+    std::cout &lt;&lt; all_caps.to_lower() &lt;&lt; '\n';
+
+    <comment>// The original string will get modified</comment>
+    std::cout &lt;&lt; all_caps &lt;&lt; '\n';
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div id="to-upper" class="code-block output">why are you shouting?!
+why are you shouting?!</div>
+                <p></p>
+            </dd>
+            <dt>string& to_upper()</dt>
+            <dd>
+                <p>
+                    This method modifies the characters of the existing string
+                    in place and returns a reference to the modified string
+                    object. All the alphabetical characters are converted to
+                    uppercase and other characters are left as it is.
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string lowercase{"gentle and meek"};
+    std::cout &lt;&lt; lowercase.to_upper() &lt;&lt; '\n';
+
+    <comment>// The original string will get modified</comment>
+    std::cout &lt;&lt; lowercase &lt;&lt; '\n';
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div id="capitalize" class="code-block output">GENTLE AND MEEK
+GENTLE AND MEEK</div>
+                <p></p>
+            </dd>
+            <dt>string& capitalize()</dt>
+            <dd>
+                <p id="bstring">
+                    Capitalize the first character of the string if it is an
+                    alphabetic character, do nothing if otherwise. If the
+                    string contains any leading whitespace characters then
+                    they are simply skipped and the first character after all
+                    the whitespace is considered for capitalization. If it is
+                    an alphabet it will be capitalized, if not then the string
+                    will not be modified in any way.
+                </p>
+            </dd>
+            <dt>string bstring(int width = 32) const</dt>
+            <dd>
+                <p>
+                    Generates and returns a string containing the binary
+                    representation of the number in the string. If whitespaces
+                    exist in the string before or after the number then it
+                    will be ignored and the desired result will be produced.
+                    If however, the string contains any non-numeric characters
+                    after removing the preceding and trailing whitespace then
+                    this method will throw a <a href="" class="exception">ValueError</a>
+                    exception. A <a href="" class="exception">ValueError</a>
+                    exception is also thrown when the value of the width
+                    parameter is less than 1. The range of values for which
+                    the correct binary representation can be found is
+                    -2<sup>64</sup> to 2<sup>64</sup> - 1.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>width [default = 32]:</b> Specifies the number of characters
+                            which will be used in the binary representation.
+                            The maximum value it can take is 64 but if a value
+                            is specified which is greater than 64 it is
+                            silently readjusted to 64 and no exception is
+                            thrown. If a value less than 1 is passed to width
+                            then a <a href="" class="exception">ValueError</a>
+                            exception is thrown.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string numeric{"   56  "};
+    <comment>
+    // The number of characters in the binary representation will be 32</comment>
+    std::cout &lt;&lt; str.bstring() &lt;&lt; '\n';
+    <comment>
+    // The number of characters in the binary representation will now be 8</comment>
+    std::cout &lt;&lt; str.bstring(8) &lt;&lt; '\n';
+
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div id="reverse" class="code-block output">00000000000000000000000000111000
+00111000</div>
+                <p></p>
+            </dd>
+            <dt>string& reverse()</dt>
+            <dd>
+                <p id="reversed">
+                    Reverses and returns a reference to the string. This
+                    method performs a character by character swap of the
+                    characters in the string to reverse it. The string gets
+                    modified in the process.
+                </p>
+            </dd>
+            <dt>string reversed() const</dt>
+            <dd>
+                <p id="similar">
+                    Generates a new string which contains the reverse of the
+                    existing string. The existing string is not modified in
+                    the process.
+                </p>
+            </dd>
+            <dt>bool similar(const string& str) const</dt>
+            <dt>bool similar(const char* str) const</dt>
+            <dd>
+                <p>
+                    This method performs case-insensitive comparison
+                    with the string str. The method has two overloads to
+                    make it possible to compare with objects of the string
+                    class as well as with C-strings (const char*).
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>str:</b> The string to compare with. It can
+                            either be of string type or of const char* type.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include "arr_string.h"
+
+int main(void)
+{
+    string answer{"Ramanujan"}, response;
+
+    std::cout &lt;&lt; "Who was the man who knew infinity? ";
+    std::cin >> response;
+
+    if (response.similar(answer))
+        std::cout &lt;&lt; "You are correct\n";
+    else
+        std::cout &lt;&lt; "Incorrect answer\n";
+    
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div class="code-block output">Who was the man who knew infinity? RAMANUJAN
+You are correct</div>
+                <p>The above can also be implemented as:</p>
+<div class="code-block">#include "arr_string.h"
+
+int main(void)
+{
+    string response;
+
+    std::cout &lt;&lt; "Who was the man who knew infinity? ";
+    std::cin >> response;
+
+    if (response.similar("Ramanujan"))
+        std::cout &lt;&lt; "You are correct\n";
+    else
+        std::cout &lt;&lt; "Incorrect answer\n";
+    
+    return 0;
+}</div>
+                <p>Generates the following output:</p>
+                <div id="count-char" class="code-block output">Who was the man who knew infinity? RAMANUJAN
+You are correct</div>
+                <p></p>
+            </dd>
+            <dt>size_t count(char ch) const</dt>
+            <dd>
+                <p>
+                    Counts and returns the number of occurrences of the
+                    character ch in the string.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>ch:</b> The character whose number 
+                            occurrences are to be counted.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string text{R"(
+        Q1. Who created the language C++?
+        Q2. What was C++ originally called?
+        Q3. What is a lambda expression?
+        Q4. Give a brief description of a functor.
+        Q5. What is multiple inheritance?
+        Q6. What is a virtual function?
+    )"};
+
+    std::cout &lt;&lt; "The number of questions in the text is: " &lt;&lt; text.count('Q');
+
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div id="count-str" class="code-block output">The number of questions in the text is: 6</div>
+                <p></p>
+            </dd>
+            <dt>size_t count(const string& pattern) const</dt>
+            <dt>size_t count(const char* pattern) const</dt>
+            <dd>
+                <p>
+                    Counts and returns the number of occurrences of pattern
+                    in the string. If the string is empty or the pattern
+                    string is empty then a <a href="" class="exception">ValueError</a>
+                    exception will be thrown with an error message identifying
+                    which among the two was empty.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>pattern:</b> The pattern string whose
+                            occurrences are to be counted. It can either be
+                            of string type or a const char* type.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string text{R"(
+        Q1. Who created the language C++?
+        Q2. What was C++ originally called?
+        Q3. What is a lambda expression?
+        Q4. Give a brief description of a functor.
+        Q5. What is multiple inheritance?
+        Q6. What is a virtual function?
+    )"};
+
+    std::cout &lt;&lt; "The number of \"Wh\" questions is: " &lt;&lt; text.count("Wh");
+
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div id="count-stri" class="code-block output">The number of "Wh" questions is: 5</div>
+                <p></p>
+            </dd>
+            <dt>size_t counti(const string& pattern) const</dt>
+            <dt>size_t counti(const const char* pattern) const</dt>
+            <dd>
+                <p>
+                    Counts and returns the number of occurrences
+                    (case-insensitive) of pattern in the string. If the
+                    string is empty or the pattern string is empty then a
+                    <a href="" class="exception">ValueError</a> exception
+                    will be thrown with an error message identifying which
+                    among the two was empty.
+                </p>
+                <p id="contains">
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>pattern:</b> The pattern string whose
+                            occurrences are to be counted case-insensitively.
+                            It can either be of string type or a const char*
+                            type.
+                        </li>
+                    </ul>
+                </p>
+            </dd>
+            <dt>bool contains(const string& pattern) const</dt>
+            <dt>bool contains(const char* pattern) const</dt>
+            <dd>
+                <p>
+                    Checks if the string contains the pattern or not. This
+                    method is case-sensitive. If the string or the pattern
+                    string are empty then it simply returns false and no
+                    exceptions are thrown.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>pattern:</b> The pattern string whose
+                            occurrences are to be counted case-insensitively.
+                            It can either be of string type or a const char*
+                            type.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string name, pwd;
+    
+    std::cout &lt;&lt; "Enter your first name: ";
+    std::cin >> name;
+
+    <comment>// To clear whitespaces if any</comment>
+    name.strip();
+
+    std::cout &lt;&lt; "Enter desired password: ";
+    std::cin >> pwd;
+
+    if (pwd.contains(name))
+        std::cout &lt;&lt; "Password must not contain your name\n";
+    else
+        std::cout &lt;&lt; "Password set\n";
+    
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div id="containsi" class="code-block output">Enter your first name: Barney
+Enter desired password: Barney007
+Password must not contain your name</div>
+                <p></p>
+            </dd>
+            <dt>bool containsi(const string& pattern) const</dt>
+            <dt>bool containsi(const char* pattern) const</dt>
+            <dd>
+                <p>
+                    Checks if the string contains the pattern or not. This
+                    method is case-insensitive. If the string or the pattern
+                    string are empty then it simply returns false and no
+                    exceptions are thrown.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>pattern:</b> The pattern string whose
+                            occurrences are to be counted case-insensitively.
+                            It can either be of string type or a const char*
+                            type.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string name, pwd;
+    
+    std::cout &lt;&lt; "Enter your first name: ";
+    std::cin >> name;
+
+    <comment>// To clear whitespaces if any</comment>
+    name.strip();
+
+    std::cout &lt;&lt; "Enter desired password: ";
+    std::cin >> pwd;
+
+    if (pwd.contains(name))
+        std::cout &lt;&lt; "Password must not contain your name\n";
+    else
+        std::cout &lt;&lt; "Password set\n";
+    
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div class="code-block output">Enter your first name: Barney
+Enter desired password: barney007
+Password must not contain your name</div>
+                <p id="search">
+                    As we can see in the output containsi returns true even
+                    if the cases do not match
+                </p>
+            </dd>
+            <dt>long long search(const string& query) const</dt>
+            <dt>long long search(const char* query) const</dt>
+            <dd>
+                <p>
+                    Searches for the query string within the string object
+                    and returns the starting index of the match if a match
+                    is found. If no match is found then it returns -1.
+                    If the string is empty or the query string is empty then
+                    a <a href="" class="exception">ValueError</a> exception is
+                    thrown indicating which is the case.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>query:</b> The query string.
+                            It can either be of string type or a const char*
+                            type.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string input{"My name is Zeus"}, q{"name is "};
+    string name = input.from_pos(input.search(q) + q.size());
+
+    std::cout &lt;&lt; "Welcome " &lt;&lt; name;
+
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div id="searchi" class="code-block output">Welcome Zeus</div>
+                <p></p>
+            </dd>
+            <dt>long long searchi(const string& query) const</dt>
+            <dt>long long searchi(const char* query) const</dt>
+            <dd>
+                <p>
+                    Searches for the query string within the string object
+                    and returns the starting index of the match if a match
+                    is found. The search is performed case-sensitively.
+                    If no match is found then it returns -1.
+                    If the string is empty or the query string is empty then
+                    a <a href="" class="exception">ValueError</a> exception is
+                    thrown indicating which is the case.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>query:</b> The query string.
+                            It can either be of string type or a const char*
+                            type.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string text{
+
+R"(
+Introduction: This article introduces the concept
+of Databases.
+Content: Databases and database systems have become
+an essential part of our everyday life. We encounter
+several activities that involve some interaction with
+a database almost daily. The examples include deposit
+and/or withdrawal from a bank, hotel, airline or
+railway reservation, accessing a computerised library,
+order a magazine subscription from a publisher,
+purchase items from supermarkets. In all the above
+cases a database is accessed.
+)"
+
+    };
+    
+    long long i = text.searchi("content:");
+    for (; i &lt; text.size(); ++i)
+        std::cout &lt;&lt; text[i];
+    
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div  class="code-block output">Content: Databases and database systems have become  
+an essential part of our everyday life. We encounter 
+several activities that involve some interaction with
+a database almost daily. The examples include deposit
+and/or withdrawal from a bank, hotel, airline or     
+railway reservation, accessing a computerised library,
+order a magazine subscription from a publisher,       
+purchase items from supermarkets. In all the above    
+cases a database is accessed.</div>
+                <p id="search_all"></p>
+            </dd>
+            <dt>index_list search_all(const string& query) const</dt>
+            <dt>index_list search_all(const char* query) const</dt>
+            <dd>
+                <p>
+                    Searches for all occurrences of the query string within
+                    the string object and returns a list of indices where each
+                    match is found in the string. The search is performed
+                    case-sensitively.
+                    Returns an empty list of
+                    size 0 if not even a single match is found.
+                    The indices are values of
+                    type size_t (unsigned long or unsigned long long depending
+                    on the machine). The list is of type <a href="">index_list</a>
+                    which can be directly printed on the screen and its elements
+                    can be accessed via the '[]' operator just like regular
+                    arrays.
+                    If the string is empty or the query string is empty then
+                    a <a href="" class="exception">ValueError</a> exception is
+                    thrown indicating which is the case.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>query:</b> The query string.
+                            It can either be of string type or a const char*
+                            type.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string twister = "swan swam in the sea, swim swan swim, swan swam back again, well swam swan";
+
+    std::cout &lt;&lt; "The word \"swan\" occurs at the following indices:\n  ";
+    std::cout &lt;&lt; twister.search_all("swan");
+
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div id="search_alli" class="code-block output">The word "swan" occurs at the following indices:
+    [0, 27, 38, 70]</div>
+                <p></p>
+            </dd>
+            <dt>index_list search_alli(const string& query) const</dt>
+            <dt>index_list search_alli(const char* query) const</dt>
+            <dd>
+                <p>
+                    Searches for all occurrences of the query string within
+                    the string object and returns a list of indices where each
+                    match is found in the string. The search is performed
+                    case-insensitively.
+                    Returns an empty list of
+                    size 0 if not even a single match is found.
+                    The indices are values of
+                    type size_t (unsigned long or unsigned long long depending
+                    on the machine). The list is of type <a href="">index_list</a>
+                    which can be directly printed on the screen and its elements
+                    can be accessed via the '[]' operator just like regular
+                    arrays.
+                    If the string is empty or the query string is empty then
+                    a <a href="" class="exception">ValueError</a> exception is
+                    thrown indicating which is the case.
+                </p>
+                <p id="replace">
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>query:</b> The query string.
+                            It can either be of string type or a const char*
+                            type.
+                        </li>
+                    </ul>
+                </p>
+            </dd>
+            <dt>string& replace(char to_replace, char replacement_char)</dt>
+            <dd>
+                <p>
+                    Replaces each occurrence of the character to_replace in
+                    the string with the character replacement_char and
+                    returns a reference to the string. This method is
+                    case-sensitive.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>to_replace:</b> The character(case-sensitive)
+                            to be replaced in the string.
+                        </li>
+                        <li>
+                            <b>replacement_char:</b> The character with which
+                            to_replace will be replaced.
+                        </li>
+                    </ul>
+                </p>
+<div class="code-block">#include &lt;iostream&gt;
+#include "arr_string.h"
+
+int main(void)
+{
+    string file_name;
+    std::cout &lt;&lt; "Enter the name of text file: ";
+    std::cin >> file_name;
+    file_name.replace(' ', '_');
+    std::cout &lt;&lt; "File " &lt;&lt; file_name &lt;&lt; ".txt created\n";
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div id="fill" class="code-block output">Enter the name of text file: journal entries
+File journal_entries.txt created</div>
+                <p></p>
+            </dd>
+            <dt>string& fill(char ch)</dt>
+            <dd>
+                <p>
+                    Fills an existing string with the character ch overwriting
+                    anything contained in the string. The size of the string
+                    remains intact.
+                </p>
+                <p>
+                    Parameters
+                    <ul class="params">
+                        <li>
+                            <b>ch:</b> The character to fill the string with.
+                        </li>
+                    </ul>
+                </p>
+            </dd>
+        </dl>
+    </div>
+</body>
+</html>

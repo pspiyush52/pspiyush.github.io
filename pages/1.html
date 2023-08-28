@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Doc</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <div class="main-title">
+        <div class="side-button">
+            btn
+        </div>
+        <h1>String Docs</h1>
+    </div>
+    <div class="main-content">
+        <h1>1. Getting started</h1>
+        <h2 id="declaring-an-empty-string">
+            1.1 Declaring a string
+            <a href="#declaring-an-empty-string" class="header-link">¶</a>
+        </h2>
+        <p>
+            An empty string can be declared simply as follows.
+        </p>
+        <div class="code-block">string str;</div>
+        <p>
+            So the string has been declared, what now? As of now the string
+            does not contain any information and if you try to print it the
+            result will be a blank output and nothing else. To make the
+            string useful we can assign some value to it. This can be done
+            simply by using the assignment operator '=' as follows.
+        </p>
+        <div class="code-block">string str;
+str = "this is a string";</div>
+        <p>
+            Here we have assigned a traditional C-string to our string object
+            which can be done since the string library is compatible with
+            C-strings.
+        </p>
+        <p>
+            Rather than assigning a value to the string object we can also
+            read the input from the standard input(keyboard) and store it
+            in the string object using the stream extraction operator (>>):
+        </p>
+        <div class="code-block">string str;
+std::cout &lt;&lt; "Enter a string: ";
+std::cin >> str;</div>
+        <h2 id="printing-a-string">
+            1.2 Printing a string
+            <a href="#printing-a-string" class="header-link">¶</a>
+        </h2>
+        <p>
+            Once we have data in our string object we can print it on the
+            standard output to see its contents using the stream insertion
+            operator (&lt;&lt;):
+        </p>
+        <div class="code-block">string str;
+str = "this is a string";
+std::cout &lt;&lt; "The contents of the string are: ";
+std::cout &lt;&lt; str;</div>
+        <p>On executing it will display:</p>
+        <div class="code-block output">The contents of the string are: this is a string</div>
+        <p>
+            The stream insertion operators can be chained together as well and
+            the above can also be written as:
+        </p>
+        <div class="code-block">string str;
+str = "this is a string";
+std::cout &lt;&lt; "The contents of the string are: " &lt;&lt; str;</div>
+        <p>
+            It will produce the same output as above on execution:
+        </p>
+        <div class="code-block output">The contents of the string are: this is a string</div>
+        <p>
+            After the string object goes out of scope any memory allocated
+            gets freed and the programmer does not have to worry about memory
+            management as far as the string objects are concerned.
+        </p>
+        <h2 id="initializing-a-string">
+            1.3 Initializing a string
+        </h2>
+        <p>
+            A string object can be initialized at declaration in several
+            different ways.
+        </p>
+        <h3 id="default-character">
+            1.3.1 Initializing using a default character
+        </h3>
+        <p>
+            A string of a given size can be initialized which consists of a
+            specified character:
+        </p>
+        <div class="code-block">string lines('-', 10);
+std::cout &lt;&lt; lines;</div>
+        <p>
+            This will generate the following output:
+        </p>
+        <div class="code-block output">----------</div>
+        <p>
+            A braced initializer can be used instead of functional
+            initialization as follows:
+        </p>
+        <div class="code-block">string lines{'-', 10};
+std::cout &lt;&lt; lines;</div>
+        <p>
+            This will generate the same output as above.
+        </p>
+        <p>
+            Let's take a look at an example program:
+        </p>
+        <div class="code-block">#include "arr_string.h"
+
+int main(void)
+{
+    for (int i = 1; i &lt;= 10; ++i)
+        std::cout &lt;&lt; string{'*', i} &lt;&lt; '\n';
+    return 0;
+}</div>
+        <p>
+            The code above will generate the following output:
+        </p>
+        <div class="code-block output">*
+**
+***
+****
+*****
+******
+*******
+********
+*********
+**********
+</div>
+        <p>
+            The program above is a simple one which contains of a for loop
+            which is looping from 1 to 10. The loop contains a single
+            statement which generates and prints a string of size i filled
+            with the '*' character and then prints a newline character to
+            get to the next line for the next iteration.
+        </p>
+        <h3 id="string-literal">
+            1.3.2 Initializing using a C-string literal
+        </h3>
+        <p>
+            A string can be initialized using a C-string literal(a const char*)
+            as follows:
+        </p>
+        <div class="code-block">string text{"this is a string"};
+std::cout &lt;&lt; text;</div>
+        <p>The output will be:</p>
+        <div class="code-block output">this is a string</div>
+        <p>
+            Using this method a new string object is created and the
+            characters of the C-string literal are copied one by one
+            into the string.
+        </p>
+        <h3 id="std-string">
+            1.3.3 Initializing using an std::string
+        </h3>
+        <p>
+            A string can be initialized using the C++ string type std::string
+            as well:
+        </p>
+        <div class="code-block">string str{std_string};</div>
+        <p>
+            Here std_string is an object of type std::string.
+        </p>
+        <h3 id="copy-construct">
+            1.3.4 Initializing using another string object
+        </h3>
+        <p>
+            A string object can be initialized using another string object
+            as follows:
+        </p>
+        <div class="code-block">string text{"this is a random text"};
+std::cout &lt;&lt; "text contains: " &lt;&lt; text &lt;&lt; '\n';
+
+string text_copy{text};
+std::cout &lt;&lt; "text_copy contains: " &lt;&lt; text_copy &lt;&lt; '\n';</div>
+        <p>
+            As we can see above we can initialize a string object from another
+            string object. This process is also known as copy-constructing and
+            the constructor which is used in this process is called the copy
+            constructor. The word copy is used since the data from the source
+            string is copied into the new string which is being created.
+        </p>
+        <div class="code-block output">text contains: this is a random text
+text_copy contains: this is a random text</div>
+        <h3 id="move-construct">
+            1.3.5 Initializing by moving an existing string to the new string
+        </h3>
+        <p>
+            This may sound complicated at first but it really isn't. Whenever
+            a new string is created some memory is allocated for it and then
+            whatever data is to be stored in the memory is copied there.
+            When we copy construct a string object from an existing string
+            object we allocate memory for the new string object and then we
+            copy the contents of the existing string to it.
+        </p>
+        <p>
+            When we move an existing string to a new string being created we
+            do not allocate any new memory for the new string. The ownership
+            of the memory allocated for the the existing string is shifted to
+            the new string and the existing string is now empty. This is
+            illustrated below:
+        </p>
+        <div class="code-block">#include "arr_string.h"
+
+void check_string(string& s){
+    if (s.is_empty())
+        std::cout &lt;&lt; "The string is empty\n";
+    else
+        std::cout &lt;&lt; "The string is not empty\n";
+}
+
+int main(void)
+{
+    string text{"this is a string"};
+
+    std::cout &lt;&lt; "Before moving...\n";
+    check_string(text);
+
+    <comment>// moving the string to a new string using std::move</comment>
+    string new_text{std::move(text)};
+
+    std::cout &lt;&lt; "\nAfter moving...\n";
+    check_string(text);
+
+    std::cout &lt;&lt; "\nnew_text contains: " &lt;&lt; new_text &lt;&lt; '\n';
+
+    return 0;
+}
+</div>
+        <p>
+            Generates the following output:
+        </p>
+        <div class="code-block output">Before moving...
+The string is not empty
+
+After moving...
+The string is empty
+
+new_text contains: this is a string</div>
+        <p>
+            From the above we can see that the original string becomes empty
+            after moving it to the new string and the new string now contains
+            what the original string contained.
+        </p>
+    </div>
+</body>
+</html>
