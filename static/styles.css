@@ -24,10 +24,11 @@ h3 {
 }
 
 div.main-title{
-    flex-basis: 100px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
-    background-color: lightgray;
-    border-bottom: 1px solid gray;
+    background-color: rgb(220, 238, 255);
+    border-bottom: 3px solid rgb(255, 255, 255);
+    box-shadow: 0 1px 5px #0af;
     position: fixed;
     right: 0;
     left: 0;
@@ -43,10 +44,20 @@ div.main-content{
     font-family: 'Roboto Mono', monospace;
     font-size: 0.95em;
     white-space: break-spaces;
+    word-wrap: break-word;
     margin: 5px 0;
     padding: 5px;
     background-color: rgb(241, 241, 241);
     border: 1px solid rgb(214, 214, 214);
+}
+
+span.mono {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+}
+
+span.code-block {
+    margin: 0;
 }
 
 comment {
@@ -95,10 +106,23 @@ table.border-table td{
     font-size: 0.8rem;
 }
 
+div.eqn {
+    width: fit-content;
+    margin: 20px auto;
+    font-family: 'Latin Modern Math';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+span.math {
+    font-family: 'Latin Modern Math';
+}
+
 @media(min-width: 600px) {
     body {
         font-size: 16px;
-        /* line-height: 1.5rem; */
     }
     .code-block{
         font-size: 0.9em;
@@ -118,12 +142,34 @@ table.border-table td{
         border-bottom: 1px solid black;
         font-size: inherit;
     }
+    div.eqn {
+        font-size: 1.2em;
+    }
+    span.tabs::before {
+        content: "    ";
+    }
+    span#filenames::before {
+        content : "<< '\\t' ";
+    }
 }
 
 div.main-title>.side-button{
     box-sizing: border-box;
     flex-basis: 40px;
     border-right: 1px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+div.main-title > div.side-button:hover {
+    cursor: pointer;
+}
+
+div.side-button > div:not(:last-child) {
+    flex-basis: 23%;
+    border-bottom: 2px solid black;
+    border-radius: 3px;
+    margin: 0 5px;
 }
 
 div.main-title>h1{
