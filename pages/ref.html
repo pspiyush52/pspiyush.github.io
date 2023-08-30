@@ -30,6 +30,10 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 0.95rem;
         }
+        dt.exception {
+            text-decoration: none;
+            font-style: italic;
+        }
         dd {
             margin-inline-end: 40px;
             margin-block-end: 50px;
@@ -63,7 +67,7 @@
                 font-size: 0.8rem;
             }
             img#indexing {
-                height: 20px;
+                height: 27px;
                 width: 75%;
             }
             dl.small dt {
@@ -95,8 +99,8 @@
                 </p>
                 <div class="code-block">string str;</div>
                 <p id="fill-constructor">
-                    This creates an empty string with size 0 containing only
-                    the null terminating character.
+                    This creates an empty string which contains nothing and no
+                    memory is allocated to the string.
                 </p>
             </dd>
             <dt>string(char ch, size_t size)</dt>
@@ -123,10 +127,13 @@ std::cout &lt;&lt; lines;</div>
             <dt>string(const std::string& str)</dt>
             <dd>
                 <p id="copy-constructor">
-                    Creates a string from an existing std::string object. The
-                    c_str() method of the std::string class is used to get the
-                    underlying C-string from the std::string and then the
-                    C-string is used to create a string object.
+                    Creates a string from an existing
+                    <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><em>std::string</em></a>
+                    object. The c_str() method of the 
+                    <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><em>std::string</em></a>
+                    class is used to get the underlying C-string from the 
+                    <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><em>std::string</em></a>
+                    and then the C-string is used to create a string object.
                 </p>
             </dd>
             <dt>string(const string& src)</dt>
@@ -203,13 +210,6 @@ int main(void)
                 <p>
                     Used to check whether the string is empty or not. Returns
                     a boolean value indicating the same.
-                </p>
-                <p id="is-alpha">
-                    By the way the string
-                    class is implemented, no string object is truly empty
-                    since the "empty" string object contains one null
-                    character which has to be present for compatibility
-                    with C-strings.
                 </p>
             </dd>
             <dt>bool is_alpha() const</dt>
@@ -535,8 +535,8 @@ int main(void)
                     will be ignored and the desired result will be produced.
                     If however, the string contains any non-numeric characters
                     after removing the preceding and trailing whitespace then
-                    this method will throw a <a href="" class="exception">ValueError</a>
-                    exception. A <a href="" class="exception">ValueError</a>
+                    this method will throw a <a href="#value-error" class="exception">ValueError</a>
+                    exception. A <a href="#value-error" class="exception">ValueError</a>
                     exception is also thrown when the value of the width
                     parameter is less than 1. The range of values for which
                     the correct binary representation can be found is
@@ -552,7 +552,7 @@ int main(void)
                             is specified which is greater than 64 it is
                             silently readjusted to 64 and no exception is
                             thrown. If a value less than 1 is passed to width
-                            then a <a href="" class="exception">ValueError</a>
+                            then a <a href="#value-error" class="exception">ValueError</a>
                             exception is thrown.
                         </li>
                     </ul>
@@ -696,7 +696,7 @@ int main(void)
                 <p>
                     Counts and returns the number of occurrences of pattern
                     in the string. If the string is empty or the pattern
-                    string is empty then a <a href="" class="exception">ValueError</a>
+                    string is empty then a <a href="#value-error" class="exception">ValueError</a>
                     exception will be thrown with an error message identifying
                     which among the two was empty.
                 </p>
@@ -739,7 +739,7 @@ int main(void)
                     Counts and returns the number of occurrences
                     (case-insensitive) of pattern in the string. If the
                     string is empty or the pattern string is empty then a
-                    <a href="" class="exception">ValueError</a> exception
+                    <a href="#value-error" class="exception">ValueError</a> exception
                     will be thrown with an error message identifying which
                     among the two was empty.
                 </p>
@@ -864,7 +864,7 @@ Password must not contain your name</div>
                     and returns the starting index of the match if a match
                     is found. If no match is found then it returns -1.
                     If the string is empty or the query string is empty then
-                    a <a href="" class="exception">ValueError</a> exception is
+                    a <a href="#value-error" class="exception">ValueError</a> exception is
                     thrown indicating which is the case.
                 </p>
                 <p>
@@ -902,7 +902,7 @@ int main(void)
                     is found. The search is performed case-sensitively.
                     If no match is found then it returns -1.
                     If the string is empty or the query string is empty then
-                    a <a href="" class="exception">ValueError</a> exception is
+                    a <a href="#value-error" class="exception">ValueError</a> exception is
                     thrown indicating which is the case.
                 </p>
                 <p>
@@ -973,7 +973,7 @@ cases a database is accessed.</div>
                     can be accessed via the '[]' operator just like regular
                     arrays.
                     If the string is empty or the query string is empty then
-                    a <a href="" class="exception">ValueError</a> exception is
+                    a <a href="#value-error" class="exception">ValueError</a> exception is
                     thrown indicating which is the case.
                 </p>
                 <p>
@@ -1020,7 +1020,7 @@ int main(void)
                     can be accessed via the '[]' operator just like regular
                     arrays.
                     If the string is empty or the query string is empty then
-                    a <a href="" class="exception">ValueError</a> exception is
+                    a <a href="#value-error" class="exception">ValueError</a> exception is
                     thrown indicating which is the case.
                 </p>
                 <p>
@@ -1131,7 +1131,7 @@ str contains: ----------------</div>
                     containing these characters is returned. If the start
                     index is greater than or equal to the end index or if the
                     start index is greater than or equal to the size of the
-                    string then an <a href="" class="exception">IndexError</a>
+                    string then an <a href="#index-error" class="exception">IndexError</a>
                     exception is thrown.
                 </p>
                 <p>
@@ -1174,7 +1174,7 @@ Domain name: gmail.com</div>
                     characters after a certain given index value are required
                     to be present in the returned substring.
                     If the value of pos is greater than or equal to the size of
-                    the string then an <a href="" class="exception">IndexError</a>
+                    the string then an <a href="#index-error" class="exception">IndexError</a>
                     exception is thrown.
                 </p>
                 <p>
@@ -1556,7 +1556,7 @@ Hx{ik&Hgttkx</div>
                     then it is rejected and the precision is set to the
                     maximum possible value it can take i.e., 15. If a value
                     less than 1 is provided then a 
-                    <a href="" class="exception">ValueError</a> exception is
+                    <a href="#value-error" class="exception">ValueError</a> exception is
                     thrown.
                 </p>
                 <p id="get-precision">
@@ -2008,7 +2008,7 @@ file.close()</div>
                     </div>
                 </p>
                 <p id="bstring-friend">
-                    An <a href="" class="exception">IndexError</a> is thrown if an attempt
+                    An <a href="#index-error" class="exception">IndexError</a> is thrown if an attempt
                     is made to access an element outside the above valid range.
                 </p>
             </dd>
@@ -2026,7 +2026,7 @@ file.close()</div>
                     width is specified then with the
                     specified <em>width</em> i.e., number of digits in the binary
                     representation.
-                    A <a href="" class="exception">ValueError</a>
+                    A <a href="#value-error" class="exception">ValueError</a>
                     exception is thrown when the value of the width
                     parameter is less than 1. The range of values for which
                     the correct binary representation can be found is
@@ -2072,7 +2072,7 @@ file.close()</div>
                             permissible value and no
                             exception is thrown. If a value less than 1 is passed
                             to width then a
-                            <a href="" class="exception">ValueError</a>
+                            <a href="#value-error" class="exception">ValueError</a>
                             exception is thrown.
                         </li>
                     </ul>
@@ -2162,7 +2162,7 @@ int main(void)
                     the decimal point in the string representation. The allowed range of
                     values for the <em>precision</em> is from 1 to 15. If a value greater
                     than 15 is specified, it is readjusted to 15 and if a value less than
-                    1 is specified then a <a href="" class="exception">ValueError</a>
+                    1 is specified then a <a href="#value-error" class="exception">ValueError</a>
                     exception is thrown.
                 </p>
 <div class="code-block">#include &lt;iostream&gt;
@@ -2246,6 +2246,62 @@ int main(void)
                     It produces output similar to the one we'll get with this:
                     <span class="mono">string(str).split();</span>
                 </p>
+            </dd>
+        </dl>
+        <h3>Exceptions</h3>
+        <dl class="main">
+            <dt id="index-error" class="exception">IndexError</dt>
+            <dd>
+                <p>
+                    This exception class is derived from the standard exception
+                    class
+                    <a href="https://en.cppreference.com/w/cpp/error/out_of_range" target="_blank"><em>std::out_of_range</em></a>
+                    and is thrown whenever an attempt is made to access elements outside
+                    the bounds of the memory allocated to the string object.
+                </p>
+            </dd>
+            <dt id="value-error" class="exception">ValueError</dt>
+            <dd>
+                <p>
+                    This exception class is derived from the standard exception class
+                    <a href="https://en.cppreference.com/w/cpp/error/domain_error" target="_blank"><em>std::domain_error</em></a>
+                    and is thrown whenever an invalid or empty value for a function
+                    parameter or a flag is provided.
+                </p>
+            </dd>
+            <dt id="file-io-error" class="exception">FileIOError</dt>
+            <dd>
+                <p>
+                    This exception class is derived from the standard exception class
+                    <a href="https://en.cppreference.com/w/cpp/io/ios_base/failure" target="_blank"><em>std::ios_base::failure</em></a>
+                    and is not used anywhere in the string library rather it serves
+                    as a base class for two other excpetion classes <em>viz.,</em>
+                    <a href="#file-input-error" class="exception"><em>FileInputError</em></a> and 
+                    <a href="#file-output-error" class="exception"><em>FileOutputError</em></a>.
+                </p>
+            </dd>
+            <dt id="file-input-error" class="exception">FileInputError</dt>
+            <dd>
+                This exception is thrown to indicate that an error has occurred on the
+                input stream or the file input stream which is associated with an
+                <a href="https://en.cppreference.com/w/cpp/io/basic_istream" target="_blank"><em>std::istream</em></a>
+                object or an
+                <a href="https://en.cppreference.com/w/cpp/io/basic_ifstream" target="_blank">std::ifstream</a> object.
+                The <a href="#file-input-error" class="exception"><em>FileInputError</em></a>
+                exception class is derived from the
+                <a href="#file-io-error" class="exception"><em>FileIOError</em></a> exception class.
+            </dd>
+            <dt id="file-output-error" class="exception"><em>FileOutputError</em></dt>
+            <dd>
+                This exception is thrown to indicate that an error has occurred on the
+                output stream or the file output stream which is associated with an
+                <a href="https://en.cppreference.com/w/cpp/io/basic_ostream" target="_blank"><em>std::ostream</em></a>
+                object or an
+                <a href="https://en.cppreference.com/w/cpp/io/basic_ofstream" target="_blank"><em>std::ofstream</em></a>
+                object. The <a href="#file-output-error" class="exception"><em>FileOutputError</em></a>
+                exception class is derived from the
+                <a href="file-io-error" class="exception"><em>FileInputError</em></a> exception
+                class.
             </dd>
         </dl>
     </div>
