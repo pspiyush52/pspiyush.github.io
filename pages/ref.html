@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>String Doc</title>
+    <title>Reference</title>
     <link rel="stylesheet" href="../static/styles.css">
     <style>
         @font-face {
@@ -88,6 +88,7 @@
         <h1>
             Reference
         </h1>
+
         <h3 id="default-constructor">Constructors:</h3>
         <dl class="main">
             <dt>string()</dt>
@@ -156,6 +157,7 @@ std::cout &lt;&lt; lines;</div>
                 </p>
             </dd>
         </dl>
+
         <h3 id="string-size">Member functions</h3>
         <dl class="main">
             <dt>size_t size() const</dt>
@@ -1123,7 +1125,7 @@ str contains: ----------------</div>
                     to the size of the string then a copy of the string object
                     is created and returned.
                 </p>
-                <p id="from-pos">
+                <p>
                     When both the start and the end indices are specified then
                     the substring containing all the characters starting from
                     the index start all the way up to but not including the
@@ -1161,7 +1163,7 @@ int main(void)
     return 0;
 }</div>
                 <p>Will generate the following output:</p>
-                <div class="code-block output">Username: iamthatguy
+                <div id="from-pos" class="code-block output">Username: iamthatguy
 Domain name: gmail.com</div>
             </dd>
             <dt>string from_pos(size_t pos) const</dt>
@@ -1213,7 +1215,9 @@ Domain name: gmail.com</div>
                     number of characters from the end of the string. If the
                     value of count exceeds the size of the string then the
                     entire string is copied into a new string object and
-                    returned. This method can be used instead of the slice
+                    returned. If the value of count is given as zero then an
+                    empty string is returned.
+                    This method can be used instead of the slice
                     method if the slicing is to be done in such a way which
                     requires some number of characters from the end of the
                     string.
@@ -1484,22 +1488,23 @@ The base10 number: 5038</div>
                 </p>
             </dd>
             <dt>
-                template&lt;typename Modifier><br>
-                &nbsp;&nbsp;&nbsp;string& modify(Modifier mod_fun = {})
+                template&lt;typename Modifier, typename Predicate = identity><br>
+                &nbsp;&nbsp;&nbsp;string& modify(Modifier mod_fun = {}, Predicate pred = {})
             </dt>
             <dd>
                 <p>
                     This method is used to modify the string character by
-                    character by executing <em>mod_fun</em> on each character
-                    of the string and storing the return value of <em>mod_fun</em>
+                    character by executing <span class="mono"><em>mod_fun</em></span> on each character
+                    of the string which satisfies the predicate <span class="mono"><em>pred</em></span>
+                    and storing the return value of <span class="mono"><em>mod_fun</em></span>
                     back into the character. This automatically imposes a
-                    restriction on <em>mod_fun</em> that it cannot be a
+                    restriction on <span class="mono"><em>mod_fun</em></span> that it cannot be a
                     function like entity returning void i.e., it has to return
                     a value which can be assigned to a character and it also
-                    has to be able to accept a single <em>char</em> value as a
+                    has to be able to accept a single <span class="mono"><em>char</em></span> value as a
                     parameter. Most often this will be a function like entity
-                    which has a <em>char</em> value as parameter with return
-                    type <em>char</em>.
+                    which has a <span class="mono"><em>char</em></span> value as parameter with return
+                    type <span class="mono"><em>char</em></span>.
                 </p>
                 <p>
                     The result of this method will be the same as if the
@@ -1508,7 +1513,71 @@ The base10 number: 5038</div>
                 <div class="code-block">string str{"some string"};
 
 for (char& ch : str)
-    ch = mod_fun(ch);</div>
+    if (pred(ch))
+        ch = mod_fun(ch);</div>
+                <p>
+                    Template parameters:
+                    <ul class="params">
+                        <li>
+                            <b>Modifier:</b> The type of the function like entity which will be used to 
+                            modify the string (<span class="mono">mod_fun</span>).
+                        </li>
+                        <li>
+                            <b>Predicate [default = tautology]:</b> The type of the function like entity
+                            which will determine which characters of the string get modified.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    Method Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>mod_fun [default = {}]:</b> The function like entity to be used
+                            to modify the string. It must be able to accept a <span class="mono"><em>char</em></span>
+                            as a parameter and return the modified value which will be 
+                            put back in the string. The default value of <span class="mono">mod_fun</span>
+                            is an object constructed using the constructor of the type
+                            <span class="mono">Modifier</span> which takes no arguments.
+                            If
+                            <span class="mono">Modifier</span> is a class which has a constructor which
+                            takes no arguments and <span class="mono">Modifier</span> is specified
+                            as a template parameter when calling the <span class="mono">modify</span> method
+                            then the <span class="mono"></span> <span class="mono">mod_fun</span>
+                            parameter is not needed to be specified as it will be constructed upon the
+                            method call using
+                            the constructor of <span class="mono">Modifier</span> which takes no
+                            arguments. If the <span class="mono">Modifer</span> doesn't have such a constructor
+                            or if some parameters are to be specified at the time of construction then
+                            an existing object has to be passed for the parameter
+                            <span class="mono">mod_fun</span>.
+                        </li>
+                        <li>
+                            <b>pred [default = {}]:</b> This function like entity will be used to 
+                            determine which characters of the string to modify. If <span class="mono"><em>pred</em></span> is
+                            left empty then an object of the <span class="mono"><em>tautology</em></span>
+                            class will be created and assigned to <span class="mono"><em>pred</em></span>.
+                            It is be a functor which takes a single <span class="mono"><em>char</em></span>
+                            as an argument and always returns <span class="mono"><em>true</em></span>, so all
+                            the characters will be modified by default.
+                            It must be able to accept a 
+                            <span class="mono"><em>char</em></span> as a parameter and must return a
+                            boolean value. The default value of <span class="mono"><em>pred</em></span>
+                            is an object constructed using the constructor of the type
+                            <span class="mono"><em>Predicate</em></span> which takes no arguments.
+                            If
+                            <span class="mono"><em>Predicate</em></span> is a class which has a constructor which
+                            takes no arguments and <span class="mono"><em>Predicate</em></span> is specified
+                            as a template parameter when calling the <span class="mono"><em>modify</em></span> method
+                            then the <span class="mono"></span> <span class="mono"><em>pred</em></span>
+                            parameter is not needed to be specified as it will be constructed upon the
+                            method call using
+                            the constructor of <span class="mono"><em>Predicate</em></span> which takes no
+                            arguments. If the <span class="mono"><em>Predicate</em></span> doesn't have such a constructor
+                            then an existing object has to be passed for the parameter
+                            <span class="mono"><em>pred</em></span>.
+                        </li>
+                    </ul>
+                </p>
                 <p>
                     An example using a functor:
                 </p>
@@ -1538,6 +1607,34 @@ int main(void)
                 <p>Will generate the following output:</p>
                 <div class="code-block output">Euxfh#Edqqhu
 Hx{ik&Hgttkx</div>
+                <p>An example using lambda expressions for modifier and predicate:</p>
+<div class="code-block">#include "arr_string.h"
+
+int main(void)
+{
+    string str{"This is some text"};
+
+    std::cout &lt;&lt; "Before modification: " &lt;&lt; str &lt;&lt; '\n';
+
+    std::cout &lt;&lt; str.modify([](char& ch){
+        return '-';
+    }, [](char& ch){
+        return (ch == ' ');
+    });
+
+    std::cout &lt;&lt; "\nAfter modification: " &lt;&lt; str &lt;&lt; '\n';
+
+    return 0;
+}</div>
+                <p>Will generate the following output:</p>
+                <div class="code-block output">Before modification: This is some text
+
+After modification: This-is-some-text</div>
+                <p>
+                    The predicate which we used returns <span class="mono"><em>true</em></span>
+                    for the space <span class="mono">' '</span> character so only the
+                    space characters in the string get modified.
+                </p>
                 <p id="set-precision">
                     As is obvious this method is purely for convenience's
                     sake.
@@ -1578,32 +1675,117 @@ Hx{ik&Hgttkx</div>
             <dt>iterator begin()</dt>
             <dd>
                 <p id="end">
-                    Returns an iterator which points to the beginning of
-                    the string.
+                    Returns a <a href="#string-iterator"><span class="mono">string::iterator</span></a>
+                    pointing to the first character of the string.
                 </p>
             </dd>
             <dt>iterator end()</dt>
             <dd>
-                <p>
-                    Returns an iterator which points to one character beyond
-                    the last element of the string.
+                <p id="const-begin">
+                    Returns a <a href="#string-iterator"><span class="mono">string::iterator</span></a>
+                    pointing to one character past the last character of the string.
                 </p>
             </dd>
             <dt>const_iterator begin() const</dt>
             <dd>
-                <p>
-                    Returns a const iterator which points to the beginning
-                    of the string. A const iterator cannot be used to modify
-                    the contents of the string.
+                <p id="const-end">
+                    This method is invoked for <em>const</em> string objects.
+                    It returns a <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    pointing to the first character of the string. A
+                    <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    cannot be used to modify the contents of the string.
                 </p>
             </dd>
             <dt>const_iterator end() const</dt>
             <dd>
-                Returns a const iterator which points to the end of the
-                string. A const iterator cannot be used to modify
-                the contents of the string.
+                <p id="cbegin">
+                    This method is invoked for <em>const</em> string objects.
+                    It returns a <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    pointing to one character past the last character of the string.
+                    A <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    cannot be used to modify the contents of the string.
+                </p>
+            </dd>
+            <dt>const_iterator cbegin()</dt>
+            <dd>
+                <p id="cend">
+                    Returns a
+                    <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    pointing to the first character of the string. A
+                    <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    cannot be used to modify the contents of the string.
+                </p>
+            </dd>
+            <dt>const_iterator cend()</dt>
+            <dd>
+                <p id="rbegin">
+                    Returns a
+                    <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    pointing to one character past the last character of the string. A
+                    <a href="#string-const-iterator"><span class="mono">string::const_iterator</span></a>
+                    cannot be used to modify the contents of the string.
+                </p>
+            </dd>
+            <dt>reverse_iterator rbegin()</dt>
+            <dd>
+                <p id="rend">
+                    Returns a
+                    <a href="#string-reverse-iterator"><span class="mono">string::reverse_iterator</span></a>
+                    pointing to the last character of the string.
+                </p>
+            </dd>
+            <dt>reverse_iterator rend()</dt>
+            <dd>
+                <p id="const-rbegin">
+                    Returns a
+                    <a href="#string-reverse-iterator"><span class="mono">string::reverse_iterator</span></a>
+                    pointing to one character before the first character of the string.
+                </p>
+            </dd>
+            <dt>const_reverse_iterator rbegin() const</dt>
+            <dd>
+                <p id="const-rend">
+                    This method is invoked for <em>const</em> string objects.
+                    It returns a
+                    <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    pointing to the last character of the string.
+                    A <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    cannot be used to modify the contents of the string.
+                </p>
+            </dd>
+            <dt>const_reverse_iterator rend() const</dt>
+            <dd>
+                <p id="crbegin">
+                    This method is invoked for <em>const</em> string objects.
+                    It returns a
+                    <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    pointing to one character before the first character of the string.
+                    A <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    cannot be used to modify the contents of the string.
+                </p>
+            </dd>
+            <dt>const_reverse_iterator crbegin()</dt>
+            <dd>
+                <p id="crend">
+                    Returns a 
+                    <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    pointing to the last character of the string.
+                    A <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    cannot be used to modify the contents of the string.
+                </p>
+            </dd>
+            <dt>const_reverse_iterator crend()</dt>
+            <dd>
+                <p>
+                    Returns a 
+                    <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    pointing to one character before the first character of the string.
+                    A <a href="#string-const-reverse-iterator"><span class="mono">string::const_reverse_iterator</span></a>
+                    cannot be used to modify the contents of the string.
+                </p>
             </dd>
         </dl>
+        
         <h3 id="paranths-operator">Operators</h3>
         <dl class="main">
             <dt>string operator()(size_t end)</dt>
@@ -2007,12 +2189,170 @@ file.close()</div>
                         -1 &le; <em>i<sub>n</sub></em> &le; -S
                     </div>
                 </p>
-                <p id="bstring-friend">
+                <p id="string-iterators">
                     An <a href="#index-error" class="exception">IndexError</a> is thrown if an attempt
                     is made to access an element outside the above valid range.
                 </p>
             </dd>
         </dl>
+
+        <h3>Iterators</h3>
+        <dl class="main">
+            <p>
+                An <strong>Iterator</strong>
+                is a pointer like object which points to an element inside a 
+                container object.
+                It provides access to the element it is pointing towards using the
+                <span class="mono">'*'</span> operator and it can be
+                made to point to the next element in the container using the increment
+                <span class="mono">'++'</span> operator. Using the iterator all the
+                elements of a container can be accessed and modified (if it's not a 
+                <em>const</em> iterator). The element which the iterator is pointing
+                towards is accessed using the <span class="mono">'*'</span> operator
+                and two iterators can be compared using the <span class="mono">'=='</span>
+                and <span class="mono">'!='</span> operators.
+            </p>
+            <p>
+                A <strong>reverse iterator</strong> also a pointer like object which points
+                to an element inside a container object. It provides access to the element
+                it is pointing towards using the <span class="mono">'*'</span> operator.
+                What makes it different from the regular <strong>iterator</strong> is that
+                while an iterator move forwards through the container when incremented,
+                the reverse iterator moves backwards.
+            </p>
+            <p id="string-iterator">
+                These requirements however, are the bare minimum and there are several
+                types of iterators some of which have requirements more than just these
+                listed above. Having a full blown discussion about iterators is out of
+                scope here so we'll leave it at that.
+            </p>
+            <dt>string::iterator</dt>
+            <dd>
+                <p>
+                    The <span class="mono">string::iterator</span> is just a <em>char*</em>
+                    i.e., a pointer to a character and nothing more. Since a pointer
+                    serves as a rather powerful iterator we can use a pointer as an
+                    iterator. Also, since the <span class="mono">string::iterator</span> is
+                    a pointer, therefore it can be used for random access as well making
+                    the <span class="mono">string::iterator</span> a 
+                    <strong>random access iterator</strong>
+                    which means in addition to begin able to move forwards and backwards through
+                    the string <em>one element at a time</em> using <span class="mono">'++'</span> and 
+                    <span class="mono">'--'</span> operators, we can move forwards or backwards
+                    an arbitrary amount of steps by adding/subtracting some integer from
+                    the iterator. We can also access some element which is 
+                    <span class="mono">i</span> places ahead of where the iterator is currently
+                    pointing to by using the <span class="mono">[]</span> operator (offset access).
+                </p>
+                <p id="string-const-iterator">
+                    It is returned by the methods 
+                    <a href="#begin"><span class="mono">begin()</span></a> which returns
+                    a <span class="mono">string::iterator</span> to the beginning of the string
+                    and 
+                    <a href="#end"><span class="mono">end()</span></a> which returns a
+                    <span class="mono">string::iterator</span> to one character past the last
+                    character of the string which is the terminating null character.
+                </p>
+            </dd>
+            <dt>string::const_iterator</dt>
+            <dd>
+                <p>
+                    The <span class="mono">string::const_iterator</span> like the 
+                    <a href="#string-iterator"><span class="mono">string::iterator</span></a>
+                    is a pointer but with a <em>const</em> qualification i.e., the
+                    <span class="mono">string::const_iterator</span> is a <em>const char*</em>.
+                    Also, since the <span class="mono">string::const_iterator</span> is
+                    a pointer, therefore it can be used for random access as well making
+                    the <span class="mono">string::const_iterator</span> a 
+                    <strong>random access iterator</strong>
+                    which means in addition to begin able to move forwards and backwards through
+                    the string <em>one element at a time</em> using <span class="mono">'++'</span> and 
+                    <span class="mono">'--'</span> operators, we can move forwards or backwards
+                    an arbitrary amount of steps by adding/subtracting some integer from
+                    the iterator. We can also access some element which is 
+                    <span class="mono">i</span> places ahead of where the iterator is currently
+                    pointing to by using the <span class="mono">[]</span> operator (offset access).
+                </p>
+                <p>
+                    It is returned by the methods <a href="#cbegin"><span class="mono">cbegin()</span></a>
+                    which returns a <span class="mono">string::const_iterator</span> to the
+                    beginning of the string and <a href="#cend"><span class="mono">cend()</span></a>
+                    which returns a <span class="mono">string::const_iterator</span> to one
+                    character past the last character of the string which is the terminating null
+                    character.
+                </p>
+                <p id="string-reverse-iterator">
+                    For <em>const</em> string objects the <span class="mono"></span>
+                    <a href="#begin"><span class="mono">begin()</span></a> and 
+                    <a href="#end"><span class="mono">end()</span></a> methods also return a 
+                    <span class="mono">string::const_iterator</span>.
+                </p>
+            </dd>
+            <dt>string::reverse_iterator</dt>
+            <dd>
+                <p>
+                    The <span class="mono">string::reverse_iterator</span> is a reverse iterator
+                    which can be used to iterate through the string in the reverse
+                    direction i.e., from the last character of the string to the first character.
+                    The <span class="mono">string::reverse_iterator</span> is a 
+                    <strong>random access iterator</strong> which means
+                    in addition to begin able to move forwards and backwards through
+                    the string <em>one element at a time</em> using <span class="mono">'++'</span> and 
+                    <span class="mono">'--'</span> operators, we can move forwards or backwards
+                    an arbitrary amount of steps by adding/subtracting some integer from
+                    the iterator. We can also access some element which is 
+                    <span class="mono">i</span> places ahead of where the iterator is currently
+                    pointing to by using the <span class="mono">[]</span> operator (offset access).
+                </p>
+                <p id="string-const-reverse-iterator">
+                    It is returned by the methods 
+                    <a href="#rbegin"><span class="mono">rbegin()</span></a> which returns
+                    a <span class="mono">string::reverse_iterator</span> to the last character
+                    of the string and 
+                    <a href="#rend"><span class="mono">rend()</span></a> which returns a 
+                    <span class="mono">string::reverse_iterator</span> to one character before
+                    the first character of the string.
+                </p>
+            </dd>
+            <dt>string::const_reverse_iterator</dt>
+            <dd>
+                <p>
+                    The <span class="mono">string::const_reverse_iterator</span> is a <em>read only</em>
+                    reverse iterator
+                    which can be used to iterate through the string in the reverse
+                    direction i.e., from the last character of the string to the first character.
+                    The <span class="mono">string::reverse_iterator</span> is a 
+                    <strong>random access iterator</strong> which means
+                    in addition to begin able to move forwards and backwards through
+                    the string <em>one element at a time</em> using <span class="mono">'++'</span> and 
+                    <span class="mono">'--'</span> operators, we can move forwards or backwards
+                    an arbitrary amount of steps by adding/subtracting some integer from
+                    the iterator. We can also access some element which is 
+                    <span class="mono">i</span> places ahead of where the iterator is currently
+                    pointing to by using the <span class="mono">[]</span> operator (offset access).
+                    Since the <span class="mono">string::const_reverse_iterator</span> is <em>read only</em>
+                    we can access the characters of the string using it but we cannot modify any
+                    character of the string through it.
+                </p>
+                <p>
+                    The <span class="mono">string::const_reverse_iterator</span> is returned
+                    by the methods 
+                    <a href="#crbegin"><span class="mono">crbegin()</span></a> which returns a
+                    <span class="mono">string::const_reverse_iterator</span> to the last
+                    character of the string and 
+                    <a href="#crend"><span class="mono">crend()</span></a> whic returns a 
+                    <span class="mono">string::const_reverse_iterator</span> to one character
+                    before the first character of the string.
+                </p>
+                <p>
+                    For <em>const</em> string objects the 
+                    <a href="#rbegin"><span class="mono">rbegin()</span></a> and 
+                    <a href="#rend"><span class="mono">rend()</span></a> methods also return
+                    a <span class="mono">string::const_reverse_iterator</span>
+                </p>
+            </dd>
+        </dl>
+
         <h3 id="bstring-friend">Friend functions</h3>
         <dl class="main">
             <dt>string bstring(int num)</dt>
@@ -2231,6 +2571,7 @@ int main(void)
                 </p>
             </dd>
         </dl>
+
         <h3 id="split-global">Others</h3>
         <dl class="main">
             <dt>string::string_list split(const char* str, char ch = ' ')</dt>
@@ -2248,11 +2589,12 @@ int main(void)
                 </p>
             </dd>
         </dl>
-        <h3>Exceptions</h3>
+
+        <h3 id="index-error">Exceptions</h3>
         <dl class="main">
-            <dt id="index-error" class="exception">IndexError</dt>
+            <dt class="exception">IndexError</dt>
             <dd>
-                <p>
+                <p id="value-error">
                     This exception class is derived from the standard exception
                     class
                     <a href="https://en.cppreference.com/w/cpp/error/out_of_range" target="_blank"><em>std::out_of_range</em></a>
@@ -2260,18 +2602,18 @@ int main(void)
                     the bounds of the memory allocated to the string object.
                 </p>
             </dd>
-            <dt id="value-error" class="exception">ValueError</dt>
+            <dt  class="exception">ValueError</dt>
             <dd>
-                <p>
+                <p id="file-io-error">
                     This exception class is derived from the standard exception class
                     <a href="https://en.cppreference.com/w/cpp/error/domain_error" target="_blank"><em>std::domain_error</em></a>
                     and is thrown whenever an invalid or empty value for a function
                     parameter or a flag is provided.
                 </p>
             </dd>
-            <dt id="file-io-error" class="exception">FileIOError</dt>
+            <dt class="exception">FileIOError</dt>
             <dd>
-                <p>
+                <p  id="file-input-error">
                     This exception class is derived from the standard exception class
                     <a href="https://en.cppreference.com/w/cpp/io/ios_base/failure" target="_blank"><em>std::ios_base::failure</em></a>
                     and is not used anywhere in the string library rather it serves
@@ -2280,30 +2622,55 @@ int main(void)
                     <a href="#file-output-error" class="exception"><em>FileOutputError</em></a>.
                 </p>
             </dd>
-            <dt id="file-input-error" class="exception">FileInputError</dt>
+            <dt class="exception">FileInputError</dt>
             <dd>
-                This exception is thrown to indicate that an error has occurred on the
-                input stream or the file input stream which is associated with an
-                <a href="https://en.cppreference.com/w/cpp/io/basic_istream" target="_blank"><em>std::istream</em></a>
-                object or an
-                <a href="https://en.cppreference.com/w/cpp/io/basic_ifstream" target="_blank">std::ifstream</a> object.
-                The <a href="#file-input-error" class="exception"><em>FileInputError</em></a>
-                exception class is derived from the
-                <a href="#file-io-error" class="exception"><em>FileIOError</em></a> exception class.
+                <p id="file-output-error">
+                    This exception is thrown to indicate that an error has occurred on the
+                    input stream or the file input stream which is associated with an
+                    <a href="https://en.cppreference.com/w/cpp/io/basic_istream" target="_blank"><em>std::istream</em></a>
+                    object or an
+                    <a href="https://en.cppreference.com/w/cpp/io/basic_ifstream" target="_blank">std::ifstream</a> object.
+                    The <a href="#file-input-error" class="exception"><em>FileInputError</em></a>
+                    exception class is derived from the
+                    <a href="#file-io-error" class="exception"><em>FileIOError</em></a> exception class.
+                </p>
             </dd>
-            <dt id="file-output-error" class="exception"><em>FileOutputError</em></dt>
+            <dt class="exception"><em>FileOutputError</em></dt>
             <dd>
-                This exception is thrown to indicate that an error has occurred on the
-                output stream or the file output stream which is associated with an
-                <a href="https://en.cppreference.com/w/cpp/io/basic_ostream" target="_blank"><em>std::ostream</em></a>
-                object or an
-                <a href="https://en.cppreference.com/w/cpp/io/basic_ofstream" target="_blank"><em>std::ofstream</em></a>
-                object. The <a href="#file-output-error" class="exception"><em>FileOutputError</em></a>
-                exception class is derived from the
-                <a href="file-io-error" class="exception"><em>FileInputError</em></a> exception
-                class.
+                <p id="list-type">
+                    This exception is thrown to indicate that an error has occurred on the
+                    output stream or the file output stream which is associated with an
+                    <a href="https://en.cppreference.com/w/cpp/io/basic_ostream" target="_blank"><em>std::ostream</em></a>
+                    object or an
+                    <a href="https://en.cppreference.com/w/cpp/io/basic_ofstream" target="_blank"><em>std::ofstream</em></a>
+                    object. The <a href="#file-output-error" class="exception"><em>FileOutputError</em></a>
+                    exception class is derived from the
+                    <a href="file-io-error" class="exception"><em>FileInputError</em></a> exception
+                    class.
+                </p>
             </dd>
         </dl>
+
+        <h3>string::string_list and string::index_list</h3>
+        <p>
+            These are type aliases for <span class="mono">List&lt;string&gt;</span> and
+            <span class="mono">List&lt;size_t&gt;</span> respectively. The
+            <a href="#list-type"><span class="mono">List</span></a>
+            is a container type which can grow according to the requirements. In the
+            context of strings, it is enough to know that this type can be treated as
+            an array with one difference that the <span class="mono">[]</span> operator
+            when used with <a href="#list-type"><span class="mono">List</span></a>
+            objects performs bounds checking and will throw an
+            <a href="#index-error" class="exception">IndexError</a> if any attempt is
+            made to access an element outside the bounds of the memory allocated to
+            the <a href="#list-type"><span class="mono">List</span></a> object.
+            The <a href="#list-type"><span class="mono">List</span></a> objects unlike
+            the array and other container type objects in <span class="mono">C++</span>
+            have
+            the capability to be directly printed on the screen using the stream
+            insertion operator <span class="mono">&lt;&lt;</span>. It also supports negative
+            indexing in exactly the same way as the string type does.
+        </p>
     </div>
 </body>
 </html>
