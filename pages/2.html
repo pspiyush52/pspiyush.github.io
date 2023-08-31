@@ -36,19 +36,19 @@
                     <td>char</td>
                 </tr>
                 <tr>
-                    <td>string::iterator</td>
+                    <td id="string-iterator"><a href="ref.html#string-iterator" target="_blank">string::iterator</a></td>
                     <td>char*</td>
                 </tr>
                 <tr>
-                    <td>string::const_iterator</td>
+                    <td id="string-const-iterator"><a href="ref.html#string-const-iterator" target="_blank">string::const_iterator</a></td>
                     <td>const char*</td>
                 </tr>
                 <tr>
-                    <td>index_list</td>
+                    <td><a href="ref.html#list-type" target="_blank">index_list</a></td>
                     <td>List&lt;size_t&gt;</td>
                 </tr>
                 <tr>
-                    <td>string_list</td>
+                    <td><a href="ref.html#list-type" target="_blank">string_list</a></td>
                     <td>List&lt;string&gt;</td>
                 </tr>
             </tbody>
@@ -170,7 +170,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#similar">bool similar(const string& str)</a><br>
+                        <a target="_blank" href="ref.html#similar">bool similar(const string& str)</a><br><br>
                         <a target="_blank" href="ref.html#similar">bool similar(const char* str)</a>
                     </td>
                     <td>Perform case insensitive comparison with str</td>
@@ -181,35 +181,35 @@
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#count-str">size_t count(const string& pattern)</a><br>
+                        <a target="_blank" href="ref.html#count-str">size_t count(const string& pattern)</a><br><br>
                         <a target="_blank" href="ref.html#count-str">size_t count(const char* pattern)</a>
                     </td>
                     <td>Count the number of times the pattern string occurs in the string</td>
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#count-stri">size_t counti(const string& pattern)</a><br>
+                        <a target="_blank" href="ref.html#count-stri">size_t counti(const string& pattern)</a><br><br>
                         <a target="_blank" href="">size_t counti(const char* pattern)</a>
                     </td>
                     <td>Same as count but case insensitive</td>
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#contains">bool contains(const string& p)</a><br>
+                        <a target="_blank" href="ref.html#contains">bool contains(const string& p)</a><br><br>
                         <a target="_blank" href="ref.html#contains">bool contains(const char* p)</a>
                     </td>
                     <td>Check if the pattern p occurs in the string</td>
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#containsi">bool containsi(const string& p)</a><br>
+                        <a target="_blank" href="ref.html#containsi">bool containsi(const string& p)</a><br><br>
                         <a target="_blank" href="ref.html#containsi">bool containsi(const char* p)</a>
                     </td>
                     <td>Same as contains but case-insensitive</td>
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#search">long long search(const string& q)</a><br>
+                        <a target="_blank" href="ref.html#search">long long search(const string& q)</a><br><br>
                         <a target="_blank" href="ref.html#search">long long search(const char* q)</a>
                     </td>
                     <td>
@@ -219,14 +219,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#searchi">long long searchi(const string& q)</a><br>
+                        <a target="_blank" href="ref.html#searchi">long long searchi(const string& q)</a><br><br>
                         <a target="_blank" href="ref.html#searchi">long long searchi(const char* q)</a>
                     </td>
                     <td>Same as search but case-insensitive</td>
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#search_all">index_list search_all(const string& q)</a><br>
+                        <a target="_blank" href="ref.html#search_all">index_list search_all(const string& q)</a><br><br>
                         <a target="_blank" href="ref.html#search_all">index_list search_all(const char* q)</a>
                     </td>
                     <td>
@@ -236,7 +236,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#search_alli">index_list search_alli(const string& q)</a><br>
+                        <a target="_blank" href="ref.html#search_alli">index_list search_alli(const string& q)</a><br><br>
                         <a target="_blank" href="ref.html#search_alli">index_list search_alli(const char* q)</a>
                     </td>
                     <td>
@@ -253,7 +253,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#slice">string slice(size_t end)</a><br>
+                        <a target="_blank" href="ref.html#slice">string slice(size_t end)</a><br><br>
                         <a target="_blank" href="ref.html#slice">string slice(size_t start, size_t end)</a>
                     </td>
                     <td>Return slices of the string</td>
@@ -301,8 +301,8 @@
                 <tr>
                     <td>
                         <a target="_blank" href="ref.html#modify">
-                                template&lt;typename Modifier&gt;<br>
-                                string& modify(Modifier mod_fun = {})
+                                template&lt;typename Modifier, typename Predicate&gt;<br>
+                                string& modify(Modifier mod_fun, Predicate pred)
                         </a>
                     </td>
                     <td>Modify the string using mod_fun function entity</td>
@@ -317,7 +317,7 @@
                 </tr>
                 <tr>
                     <td><a target="_blank" href="ref.html#begin">iterator begin()</a></td>
-                    <td>Return an iterator pointing at the beginning of the string</td>
+                    <td>Return an iterator pointing to the first character of the string</td>
                 </tr>
                 <tr>
                     <td><a target="_blank" href="ref.html#end">iterator end()</a></td>
@@ -325,11 +325,43 @@
                 </tr>
                 <tr>
                     <td><a target="_blank" href="ref.html#const-begin">const_iterator begin()</a></td>
-                    <td>Return a const iterator pointing at the beginning of the string</td>
+                    <td>Return a const_iterator pointing to the first character of a <em>const</em> string</td>
                 </tr>
                 <tr>
                     <td><a target="_blank" href="ref.html#const-end">const_iterator end()</a></td>
-                    <td>Return a const iterator pointing to one character after the last character</td>
+                    <td>Return a const_iterator pointing to one character after the last character of a <em>const</em> string</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#cbegin" target="_blank">const_iterator cbegin()</a></td>
+                    <td>Return a const_iterator pointing to the first character of the string</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#cend" target="_blank">const_iterator cend()</a></td>
+                    <td>Return a const_iterator pointing to one character after the last character</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#rbegin" target="_blank">reverse_iterator rbegin()</a></td>
+                    <td>Return a reverse_iterator pointing to the last character of the string</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#rend" target="_blank">reverse_iterator rend()</a></td>
+                    <td>Return a reverse_iterator pointing to one character before the first character of the string</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#const-rbegin" target="_blank">const_reverse_iterator rbegin()</a></td>
+                    <td>Return a const_reverse_iterator pointing to the last character of a <em>const</em> string</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#const-rend" target="_blank">const_reverse_iterator rend()</a></td>
+                    <td>Return a reverse_iterator pointing to one character before the first character of a <em>const</em> string</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#crbegin" target="_blank">const_reverse_iterator crbegin()</a></td>
+                    <td>Return a const_reverse_iterator pointing to the last character of the string</td>
+                </tr>
+                <tr>
+                    <td><a href="ref.html#crend" target="_blank">const_reverse_iterator crend()</a></td>
+                    <td>Return a const_reverse_iterator pointing to one character before the first character of the string</td>
                 </tr>
             </tbody>
         </table>
@@ -440,9 +472,9 @@
             <tbody>
                 <tr>
                     <td>
-                        <a target="_blank" href="ref.html#bstring-friend">string bstring(int num)</a><br>
-                        <a target="_blank" href="ref.html#bstring-friend">string bstring(long long num)</a><br>
-                        <a target="_blank" href="ref.html#bstring-friend">string bstring(int num, int width)</a><br>
+                        <a target="_blank" href="ref.html#bstring-friend">string bstring(int num)</a><br><br>
+                        <a target="_blank" href="ref.html#bstring-friend">string bstring(long long num)</a><br><br>
+                        <a target="_blank" href="ref.html#bstring-friend">string bstring(int num, int width)</a><br><br>
                         <a target="_blank" href="ref.html#bstring-friend">string bstring(long long num, int width)</a>
                     </td>
                     <td>Generate a string containing the binary representation of num</td>
