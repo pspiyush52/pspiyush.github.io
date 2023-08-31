@@ -61,7 +61,7 @@ span.code-block {
     margin: 0;
 }
 
-comment {
+comment, span.comment {
     font-style: italic;
     color: green;
 }
@@ -105,6 +105,20 @@ table.def li::before{
 table.border-table td{
     border-bottom: 1px solid black;
     font-size: 0.8rem;
+}
+
+table.solid {
+    font-size: 0.5em;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: rgb(220, 238, 255);
+    font-size: 0.95em;
+    padding: 3px;
+}
+
+table.solid td, table.solid th{
+    border-bottom: 1px solid rgb(144, 233, 255);
+    padding: 10px;
 }
 
 div.eqn {
@@ -151,6 +165,10 @@ span.math {
     }
     span#filenames::before {
         content : "<< '\\t' ";
+    }
+    table.solid {
+        font-family: 'Roboto Mono', monospace;
+        width: 70%;
     }
 }
 
