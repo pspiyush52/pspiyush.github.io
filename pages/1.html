@@ -8,6 +8,12 @@
 </head>
 <body>
     <div class="main-title">
+        <div class="side-button">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <h1>String Docs</h1>
     </div>
     <div class="main-content">
@@ -25,7 +31,9 @@
             does not contain any information and if you try to print it the
             result will be a blank output and nothing else. To make the
             string useful we can assign some value to it. This can be done
-            simply by using the assignment operator '=' as follows.
+            simply by using the 
+            <a href="ref.html#assignment" target="_blank"><span class="mono">assignment operator '='</span></a>
+            as follows.
         </p>
         <div class="code-block">string str;
 str = "this is a string";</div>
@@ -37,7 +45,8 @@ str = "this is a string";</div>
         <p>
             Rather than assigning a value to the string object we can also
             read the input from the standard input(keyboard) and store it
-            in the string object using the stream extraction operator (>>):
+            in the string object using the
+            <a href="ref.html#stream-extraction" target="_blank"><span class="mono">stream extraction operator(>>)</span></a> :
         </p>
         <div class="code-block">string str;
 std::cout &lt;&lt; "Enter a string: ";
@@ -48,8 +57,9 @@ std::cin >> str;</div>
         </h2>
         <p>
             Once we have data in our string object we can print it on the
-            standard output to see its contents using the stream insertion
-            operator (&lt;&lt;):
+            standard output to see its contents using the
+            <a href="ref.html#stream-insertion" target="_blank"><span class="mono">stream insertion operator(&lt;&lt;)</span></a>
+            :
         </p>
         <div class="code-block">string str;
 str = "this is a string";
@@ -135,7 +145,7 @@ int main(void)
         <p id="string-literal">
             The program above is a simple one which contains of a for loop
             which is looping from 1 to 10. The loop contains a single
-            statement which generates and prints a string of size i filled
+            statement which generates and prints a string of size <span class="mono"><em>i</em></span> filled
             with the '*' character and then prints a newline character to
             get to the next line for the next iteration.
         </p>
@@ -143,7 +153,7 @@ int main(void)
             1.3.2 Initializing using a C-string literal
         </h3>
         <p>
-            A string can be initialized using a C-string literal(a const char*)
+            A string can be initialized using a C-string literal (a <span class="mono"><em>const char*</em></span>)
             as follows:
         </p>
         <div class="code-block">string text{"this is a string"};
@@ -160,12 +170,14 @@ std::cout &lt;&lt; text;</div>
             1.3.3 Initializing using an std::string
         </h3>
         <p>
-            A string can be initialized using the C++ string type std::string
+            A string can be initialized using the <span class="mono">C++</span> string type
+            <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><span class="mono"><em>std::string</em></span></a>
             as well:
         </p>
         <div class="code-block">string str{std_string};</div>
         <p id="copy-construct">
-            Here std_string is an object of type std::string.
+            Here std_string is an object of type
+            <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><span class="mono"><em>std::string</em></span></a>.
         </p>
         <h3>
             1.3.4 Initializing using another string object
@@ -182,8 +194,9 @@ std::cout &lt;&lt; "text_copy contains: " &lt;&lt; text_copy &lt;&lt; '\n';</div
         <p>
             As we can see above we can initialize a string object from another
             string object. This process is also known as copy-constructing and
-            the constructor which is used in this process is called the copy
-            constructor. The word copy is used since the data from the source
+            the constructor which is used in this process is called the 
+            <a href="ref.html#copy-constructor" target="_blank"><em>copy constructor</em></a>.
+            The word copy is used since the data from the source
             string is copied into the new string which is being created.
         </p>
         <div id="move-construct" class="code-block output">text contains: this is a random text
@@ -251,22 +264,22 @@ new_text contains: this is a string</div>
         <h2>1.4 Concatenating strings</h2>
         <p id="concatenating-two-strings">
             Two string objects can be concatenated using the
-            <a href="ref.html#concatenation-operator" target="_blank">'+' operator</a>.
-            The <a href="ref.html#concatenation-operator" target="_blank">'+' operator</a>
+            <a href="ref.html#concatenation-operator" target="_blank"><span class="mono">'+' operator</span></a>.
+            The <a href="ref.html#concatenation-operator" target="_blank"><span class="mono">'+' operator</span></a>
             can be used to concatenate a string object and a C-string as well.
             Concatenating does not modify the string objects being concatenated.
-            Both the operands to the <a href="ref.html#concatenation-operator" target="_blank">'+' operator</a>
+            Both the operands to the <a href="ref.html#concatenation-operator" target="_blank"><span class="mono">'+' operator</span></a>
             are left intact and a new string object containing the concatenated string
             is returned. If we want the contents to be modified then we have to use the
-            <a href="ref.html#compound-concatenation" target="_blank">'+=' operator</a>
+            <a href="ref.html#compound-concatenation" target="_blank"><span class="mono">'+=' operator</span></a>
             which stores the result of the concatenation to the string object
             which occurs on the left hand side of the
-            <a href="ref.html#compound-concatenation" target="_blank">'+=' operator</a>.
+            <a href="ref.html#compound-concatenation" target="_blank"><span class="mono">'+=' operator</span></a>.
         </p>
         <h3>1.4.1 Concatenating two string objects</h3>
         <p>
             Two string objects can be concatenated using the
-            <a href="ref.html#concatenation-operator" target="_blank">'+' operator</a> as follows:
+            <a href="ref.html#concatenation-operator" target="_blank"><span class="mono">'+' operator</span></a> as follows:
         </p>
 <div class="code-block">#include "arr_string.h"
 
@@ -281,7 +294,7 @@ int main(void)
         <h3>1.4.2 Concatenating a string object and a C-string</h3>
         <p>
             A string object can be concatenated with a C-string using the
-            <a href="ref.html#concatenation-operator" target="_blank">'+' operator</a>
+            <a href="ref.html#concatenation-operator" target="_blank"><span class="mono">'+' operator</span></a>
             to give a string object containing the concatenation of the two:
         </p>
 <div class="code-block">#include "arr_string.h"
@@ -299,7 +312,8 @@ int main(void)
 Your login ID is: johnny79bravo@gmail.com</div>
         <p>
             The order of the operands doesn't matter when concatenating i.e.,
-            it can either be <em>string + const char*</em> or <em>const char* + string</em>
+            it can either be <span class="mono"><em>string + const char* </em></span>
+            or <span class="mono"><em> const char* + string </em></span>
             as shown below:
         </p>
 <div class="code-block">#include "arr_string.h"
@@ -317,7 +331,7 @@ int main(void)
 ZagZig</div>
         <h3>1.4.3 Chaining the + operator</h3>
         <p>
-            The <a href="ref.html#concatenation-operator" target="_blank">'+' operator</a>
+            The <a href="ref.html#concatenation-operator" target="_blank"><span class="mono">'+' operator</span></a>
             can be chained together to concatenate multiple strings together
             in any combination:
         </p>
@@ -336,15 +350,15 @@ int main(void)
         <h3>1.4.4 Compound assignment operator</h3>
         <p>
             The
-            <a href="ref.html#compound-concatenation" target="_blank">'+=' operator</a>
+            <a href="ref.html#compound-concatenation" target="_blank"><span class="mono">'+=' operator</span></a>
             provides a shorthand for concatenating and storing the result in a
             string object.
             Instead of first using the
-            <a href="ref.html#concatenation-operator" target="_blank">'+' operator</a>
+            <a href="ref.html#concatenation-operator" target="_blank"><span class="mono">'+' operator</span></a>
             to concatenate the strings and then store the result in the string object
             using the copy assignment 
-            <a href="ref.html#assignment" target="_blank">'=' operator</a> we can use the
-            shorthand <a href="ref.html#compound-concatenation" target="_blank">'+=' operator</a>
+            <a href="ref.html#assignment" target="_blank"><span class="mono">'=' operator</span></a> we can use the
+            shorthand <a href="ref.html#compound-concatenation" target="_blank"><span class="mono">'+=' operator</span></a>
             to perform both the operations using a single operator as shown below:
         </p>
 <div class="code-block">#include "arr_string.h"
@@ -370,32 +384,32 @@ first_name after using '+=' operator: Jason Bourne</div>
         <h2>1.5 Comparing strings</h2>
         <p id="comp-strings">
             Strings can be compared for equality using the
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>.
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>.
             The
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>
             tests for strict equality and it can be used to compare objects of string
             class with C-strings as well.
             Other comparison operators which can be used for comparing two strings
             are the
-            <a href="ref.html#comparison-operators" target="_blank">operators: &lt;, >, &lt;=, =></a>
+            <a href="ref.html#comparison-operators" target="_blank"><span class="mono">operators: &lt;, &gt;, &lt;=, =&gt;</span></a>
             which perform lexicographic comparisons between two string objects or a string
             object and a C-string.
         </p>
         <h3>1.5.1 Comparing two string objects for equality</h3>
         <p>
             Two string objects can be compared for equality using the
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>.
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>.
             The
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>
             performs a case-sensitive comparison of two strings and returns a boolean
             value true if the strings are exactly identical and boolean value false
             if the strings are not identical. The
-            <a href="ref.html#equality-operator" target="_blank">'!=' operator</a>
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'!=' operator</span></a>
             is the exact opposite of the 
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>,
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>,
             and is used to check for inequality.
             Two string objects can be compared using the
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>
             as follows:
         </p>
 <div class="code-block">#include "arr_string.h"
@@ -419,10 +433,10 @@ int main(void)
 Incorrect password</div>
         <h3>1.5.2 Equality comparison between string objects and C-strings</h3>
         <p>
-            The <a href="ref.html#equality-operator" target="_blank">'==' operator</a>
+            The <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>
             can be used to compare string objects with C-strings as well.
             A string object can be compared with a C-string using the
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>
             as follows:
         </p>
 <div class="code-block">#include "arr_string.h"
@@ -456,7 +470,7 @@ Incorrect password</div>
             first letter of every word in their name while some others couldn't
             care less. In such cases, using case-insensitive comparisons makes more
             sense. The
-            <span class="mono"><a href="ref.html#similar" target="_blank">similar()</a></span>
+            <span class="mono"><a href="ref.html#similar" target="_blank"><span class="mono">similar()</span></a></span>
             method of the string class provides us with the functionality
             of making case-insensitive comparisons.
         </p>
@@ -483,7 +497,7 @@ You are correct</div>
             As we can see, the <em>case</em> doesn't matter when using the
             <span class="mono"><a href="ref.html#similar" target="_blank">similar()</a></span>
             method. Also, as was the case with the
-            <a href="ref.html#equality-operator" target="_blank">'==' operator</a>
+            <a href="ref.html#equality-operator" target="_blank"><span class="mono">'==' operator</span></a>
             the <span class="mono"><a href="ref.html#similar" target="_blank">similar()</a></span>
             method works for both string objects and C-strings. However since it is a class
             method therefore it can only be invoked using a string object and so a string
@@ -514,7 +528,7 @@ You are correct</div>
         <h3>1.5.4 Other comparison operators</h3>
         <p>
             The
-            <a href="ref.html#comparison-operators" target="_blank">operators: &lt;, >, &lt;=, =></a>
+            <a href="ref.html#comparison-operators" target="_blank"><span class="mono">operators: &lt;, &gt;, &lt;=, =&gt;</span></a>
             can be used to compare two strings <em>lexicographically</em> or in 
             other words the order in which words appear in a dictionary.
             These operators can be used to compare two string objects as well as
@@ -858,5 +872,182 @@ either proprietary or free.</div>
             from the strings.
         </p>
     </div>
+    <div id="nav-bar">
+        <a href="../manual.html">Introduction</a>
+        <ul>
+            <li>
+                <a href="1.html">
+                    1. Getting Started
+                </a>
+                <ul>
+                    <li>
+                        <a href="1.html#declaring-an-empty-string">
+                            1.1 Declaring a string
+                        </a>
+                    </li>
+                    <li>
+                        <a href="1.html#printing-a-string">
+                            1.2 Printing a string
+                        </a>
+                    </li>
+                    <li>
+                        <a href="1.html#initializing-a-string">1.3 Initializing a string</a>
+                        <ul>
+                            <li>
+                                <a href="1.html#default-character">
+                                    1.3.1 Initializing using a default character
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#string-literal">
+                                    1.3.2 Initializing using a C-string literal
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#std-string">
+                                    1.3.3 Initializing using an std::string
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#copy-construct">
+                                    1.3.4 Initializing using another string object
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#move-construct">
+                                    1.3.5 Initializing by moving an existing string to the new string
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="1.html#concatenating-strings">1.4 Concatenating strings</a>
+                        <ul>
+                            <li>
+                                <a href="1.html#concatenating-two-strings">
+                                    1.4.1 Concatenating two string objects</a>
+                            </li>
+                            <li>
+                                <a href="1.html#cstring-concat">
+                                    1.4.2 Concatenating a string object and a C-string</a>
+                            </li>
+                            <li>
+                                <a href="1.html#chaining-concat">
+                                    1.4.3 Chaining the + operator
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#compound-assignment">
+                                    1.4.4 Compound assignment operator
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="1.html#comparing-strings">1.5 Comparing strings</a>
+                        <ul>
+                            <li><a href="1.html#comp-strings">1.5.1 Comparing two string objects for equality</a></li>
+                            <li><a href="1.html#comp-cstring">1.5.2 Equality comparison between string objects and C-strings</a></li>
+                            <li><a href="1.html#comp-case">1.5.3 Case insensitive comparison</a></li>
+                            <li><a href="1.html#comp-others">1.5.4 Other comparison operators</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="1.html#basic-manipulation">1.6 Basic string manipulation</a>
+                        <ul>
+                            <li><a href="1.html#case-manip">1.6.1 Changing the letter casing</a></li>
+                            <li><a href="1.html#reverse-manip">1.6.2 Reversing</a></li>
+                            <li><a href="1.html#collapse-manip">1.6.3 Collapsing whitespace</a></li>
+                            <li><a href="1.html#replace-manip">1.6.4 Replacing characters</a></li>
+                            <li><a href="1.html#strip-manip">1.6.5 Trimming the string</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="2.html">
+                    2. The string class
+                </a>
+                <ul>
+                    <li>
+                        <a href="2.html#member-types">
+                            2.1 Member types
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#member-functions">
+                            2.2 Member functions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#operators">
+                            2.3 Operators
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#friend-functions">
+                            2.4 Friend functions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#others">
+                            2.5 Others
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="3.html">3. Deep dive</a>
+                <ul>
+                    <li><a href="3.html#extracting-substrings">3.1 Extracting substrings</a>
+                        <ul>
+                            <li><a href="3.html#slicing">3.1.1 Slicing</a></li>
+                            <li><a href="3.html#paranths-operator">3.1.2 Using the ( ) operator</a></li>
+                            <li><a href="3.html#fw-word">3.1.3 First word/Last word</a></li>
+                            <li><a href="3.html#from-pos">3.1.4 Extracting from a position</a></li>
+                            <li><a href="3.html#nlast">3.1.5 Getting n last characters</a></li>
+                            <li><a href="3.html#split">3.1.6 Split</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#iter-and-mod">3.2 Iteration and modification</a>
+                        <ul>
+                            <li><a href="3.html#iterators">3.2.1 Iterators</a></li>
+                            <li><a href="3.html#const-iterators">3.2.2 const iterators</a></li>
+                            <li><a href="3.html#reverse-iterators">3.2.3 Reverse iterators</a></li>
+                            <li><a href="3.html#const-reverse-iterators">3.2.4 const reverse iterators</a></li>
+                            <li><a href="3.html#modify-method">3.2.5 The modify method</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#numeric-operations">3.3 Numeric operations</a>
+                        <ul>
+                            <li><a href="3.html#stoi">3.3.1 String to integer</a></li>
+                            <li><a href="3.html#to-string">3.3.2 Integral values to strings</a></li>
+                            <li><a href="3.html#bstring">3.3.3 b-string from a number</a></li>
+                            <li><a href="3.html#btoi">3.3.4 Number from a b-string</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#searching">3.4 Searching</a>
+                        <ul>
+                            <li><a href="3.html#count">3.4.1 Counting characters</a></li>
+                            <li><a href="3.html#contains">3.4.2 Checking for the existence of a query string</a></li>
+                            <li><a href="3.html#count-str">3.4.3 Counting the number of occurrences of query string</a></li>
+                            <li><a href="3.html#search">3.4.4 Position of first occurrence of query string</a></li>
+                            <li><a href="3.html#search-all">3.4.5 List of all occurrences of query string</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#file-io">3.5 File I/O</a>
+                        <ul>
+                            <li><a href="3.html#istream">3.5.1 Reading from an input stream</a></li>
+                            <li><a href="3.html#getline">3.5.2 Reading contents one line at a time</a></li>
+                            <li><a href="3.html#ostream">3.5.3 Writing to an output stream</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <a href="ref.html" target="_blank"><b>The complete reference</b></a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="../static/script.js"></script>
 </body>
 </html>
