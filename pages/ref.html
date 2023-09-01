@@ -41,7 +41,7 @@
         ul.overloads {
             padding-inline: 20px;
         }
-        ul>li{
+        ul>li:not(#nav-bar ul>li){
             margin: 20px 0;
         }
         img#indexing {
@@ -82,14 +82,20 @@
 </head>
 <body>
     <div class="main-title">
+        <div class="side-button">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <h1>String Docs</h1>
     </div>
     <div class="main-content">
-        <h1>
+        <h1 id="default-constructor">
             Reference
         </h1>
 
-        <h3 id="default-constructor">Constructors:</h3>
+        <h3 >Constructors:</h3>
         <dl class="main">
             <dt>string()</dt>
             <dd>
@@ -118,32 +124,32 @@ std::cout &lt;&lt; lines;</div>
             </dd>
             <dt>string(const char* str)</dt>
             <dd>
-                <p id="stdstring-constructor">
+                <p >
                     Creates a string from a const char* (C-string). The size
                     of the C-string is found out and a string is created with
                     the same size and the contents of the C-string are copied
-                    into the string one character by character.
+                    into the <span id="stdstring-constructor">string</span> character by character.
                 </p>
             </dd>
             <dt>string(const std::string& str)</dt>
             <dd>
-                <p id="copy-constructor">
+                <p>
                     Creates a string from an existing
                     <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><em>std::string</em></a>
                     object. The c_str() method of the 
                     <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><em>std::string</em></a>
                     class is used to get the underlying C-string from the 
-                    <a href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><em>std::string</em></a>
+                    <a id="copy-constructor" href="https://en.cppreference.com/w/cpp/string/basic_string" target="_blank"><em>std::string</em></a>
                     and then the C-string is used to create a string object.
                 </p>
             </dd>
             <dt>string(const string& src)</dt>
             <dd>
-                <p id="move-constructor">
+                <p>
                     Copy constructs a string object from an existing string
                     object. It creates a new string object of the same size as
                     the string src and then copies the contents of src to the
-                    new string character by character.
+                    new <span id="move-constructor">string</span> character by character.
                 </p>
             </dd>
             <dt>string(string&& src)</dt>
@@ -157,15 +163,15 @@ std::cout &lt;&lt; lines;</div>
                 </p>
             </dd>
         </dl>
-
         <h3 id="string-size">Member functions</h3>
+        &nbsp;
         <dl class="main">
             <dt>size_t size() const</dt>
             <dd>
-                <p id="c-str">
+                <p>
                     Returns the current size of the string excluding the null
                     character. It is equal to the total number of characters
-                    excluding the null terminating character that the string
+                    excluding the <span id="c-str">null</span> terminating character that the string
                     contains.
                 </p>
             </dd>
@@ -204,38 +210,38 @@ int main(void)
     file.close();
     return 0;
 }</div>
-            <p id="is-empty"></p>
+            <p id="is-empty">Using the string object to get input from the user is more convenient than using a C-string.</p>
             </dd>
             <p></p>
             <dt>bool is_empty() const</dt>
             <dd>
-                <p>
+                <p id="is-alpha">
                     Used to check whether the string is empty or not. Returns
                     a boolean value indicating the same.
                 </p>
             </dd>
             <dt>bool is_alpha() const</dt>
             <dd>
-                <p id="is-numeric">
+                <p >
                     Checks whether the string is made up of only alphabetic
                     characters i.e., the characters 'a-z' and 'A-Z'. Will
-                    always return false if the string is empty.
+                    always return <span id="is-numeric">false</span> if the string is empty.
                 </p>
             </dd>
             <dt>bool is_numeric() const</dt>
             <dd>
-                <p id="is-alnum">
+                <p>
                     Checks whether the string is made up of only numeric
                     characters i.e., the characters '0-9'. Will always return
-                    false if the string is empty.
+                    <span id="is-alnum">false</span> if the string is empty.
                 </p>
             </dd>
             <dt>bool is_alnum() const</dt>
             <dd>
-                <p id="first-word">
+                <p >
                     Checks whether the string is made up of only alphanumeric
                     characters i.e., the characters 'a-z', 'A-Z' and '0-9'.
-                    Will always return false if the string is empty.
+                    Will always return <span id="first-word">false</span> if the string is empty.
                 </p>
             </dd>
             <dt>string first_word() const</dt>
@@ -260,9 +266,9 @@ int main(void)
     return 0;
 }</div>
                 <p>Generates the following output:</p>
-                <div id="last-word" class="code-block output">Enter your full name: Steve Rogers
+                <div class="code-block output">Enter your full name: Steve Rogers
 First name: Steve</div>
-                <p></p>
+                <p id="last-word">The string is not modified as a new string object is created and returned.</p>
             </dd>
             <dt>string last_word() const</dt>
             <dd>
@@ -285,9 +291,9 @@ int main(void)
     return 0;
 }</div>
                 <p>Generates the following output:</p>
-                <div id="get-lower" class="code-block output">Enter your full name: Steve Rogers
+                <div class="code-block output">Enter your full name: Steve Rogers
 Last name: Rogers</div>
-                <p></p>
+                <p id="get-lower">The string is not modified as a new string object is created and returned.</p>
             </dd>
             <dt>string get_lower() const</dt>
             <dd>
@@ -311,10 +317,12 @@ int main(void)
     return 0;
 }</div>
                 <p>Generates the following output:</p>
-                <div id="get-upper" class="code-block output">why are you shouting?!
+                <div  class="code-block output">why are you shouting?!
 WHY ARE YOU SHOUTING?!</div>
+            <p id="get-upper">
+                The string is not modified as a new string object is created and returned.
+            </p>
             </dd>
-            <p></p>
             <dt>string get_upper() const</dt>
             <dd>
                 <p>
@@ -337,9 +345,9 @@ int main(void)
     return 0;
 }</div>
                 <p>Generates the following output:</p>
-                <div id="to-lower" class="code-block output">GENTLE AND MEEK
+                <div class="code-block output">GENTLE AND MEEK
 gentle and meek</div>
-                <p></p>
+                <p id="to-lower">The string is not modified as a new string object is created and returned.</p>
             </dd>
             <dt>string& to_lower()</dt>
             <dd>
@@ -362,9 +370,9 @@ int main(void)
     return 0;
 }</div>
                 <p>Generates the following output:</p>
-                <div id="to-upper" class="code-block output">why are you shouting?!
+                <div class="code-block output">why are you shouting?!
 why are you shouting?!</div>
-                <p></p>
+                <p id="to-upper">The existing string is modified and no new object is created.</p>
             </dd>
             <dt>string& to_upper()</dt>
             <dd>
@@ -387,9 +395,9 @@ int main(void)
     return 0;
 }</div>
                 <p>Generates the following output:</p>
-                <div id="capitalize" class="code-block output">GENTLE AND MEEK
+                <div class="code-block output">GENTLE AND MEEK
 GENTLE AND MEEK</div>
-                <p></p>
+                <p  id="capitalize">The existing string is modified and no new object is created.</p>
             </dd>
             <dt>string& capitalize()</dt>
             <dd>
@@ -528,7 +536,8 @@ int main(void)
                     modified.
                 </p>
             </dd>
-            <dt>string bstring(int width = 32) const</dt>
+            <dt>string bstring() const</dt>
+            <dt>string bstring(int width) const</dt>
             <dd>
                 <p>
                     Generates and returns a string containing the binary
@@ -539,7 +548,7 @@ int main(void)
                     after removing the preceding and trailing whitespace then
                     this method will throw a <a href="#value-error" class="exception">ValueError</a>
                     exception. A <a href="#value-error" class="exception">ValueError</a>
-                    exception is also thrown when the value of the width
+                    exception is also thrown when the value of the <span class="mono"><em>width</em></span>
                     parameter is less than 1. The range of values for which
                     the correct binary representation can be found is
                     -2<sup>64</sup> to 2<sup>64</sup> - 1.
@@ -548,14 +557,17 @@ int main(void)
                     Parameters:
                     <ul class="params">
                         <li>
-                            <b>width [default = 32]:</b> Specifies the number of characters
+                            <b>width:</b> Specifies the number of characters
                             which will be used in the binary representation.
                             The maximum value it can take is 64 but if a value
                             is specified which is greater than 64 it is
                             silently readjusted to 64 and no exception is
                             thrown. If a value less than 1 is passed to width
                             then a <a href="#value-error" class="exception">ValueError</a>
-                            exception is thrown.
+                            exception is thrown. If the <span class="mono"><em>width</em></span>
+                            is not specified then the width of the string is only
+                            the required number of bits which must be used to 
+                            represent the number in the string.
                         </li>
                     </ul>
                 </p>
@@ -566,7 +578,8 @@ int main(void)
 {
     string numeric{"   56  "};
     <comment>
-    // The number of characters in the binary representation will be 32</comment>
+    // The number of characters in the binary representation will be 6
+    // which is the minimum bits required to represent 56 in binary</comment>
     std::cout &lt;&lt; str.bstring() &lt;&lt; '\n';
     <comment>
     // The number of characters in the binary representation will now be 8</comment>
@@ -575,16 +588,18 @@ int main(void)
     return 0;
 }</div>
                 <p>Will generate the following output:</p>
-                <div id="reverse" class="code-block output">00000000000000000000000000111000
+                <div class="code-block output">111000
 00111000</div>
-                <p></p>
+                <p id="reverse">If the width is more than the required number of bits then extra zero
+                    bits are added to the left.
+                </p>
             </dd>
             <dt>string& reverse()</dt>
             <dd>
-                <p id="reversed">
+                <p>
                     Reverses and returns a reference to the string. This
                     method performs a character by character swap of the
-                    characters in the string to reverse it. The string gets
+                    characters in the string to reverse it. The <span id="reversed">string</span> gets
                     modified in the process.
                 </p>
             </dd>
@@ -651,9 +666,9 @@ int main(void)
     return 0;
 }</div>
                 <p>Generates the following output:</p>
-                <div id="count-char" class="code-block output">Who was the man who knew infinity? RAMANUJAN
+                <div class="code-block output">Who was the man who knew infinity? RAMANUJAN
 You are correct</div>
-                <p></p>
+                <p  id="count-char">It's better to use case-insensitive comparisons when dealing with question answers</p>
             </dd>
             <dt>size_t count(char ch) const</dt>
             <dd>
@@ -745,13 +760,13 @@ int main(void)
                     will be thrown with an error message identifying which
                     among the two was empty.
                 </p>
-                <p id="contains">
+                <p>
                     Parameters:
                     <ul class="params">
                         <li>
                             <b>pattern:</b> The pattern string whose
                             occurrences are to be counted case-insensitively.
-                            It can either be of string type or a const char*
+                            It can either be of string type or a <span id="contains">const</span> char*
                             type.
                         </li>
                     </ul>
@@ -801,10 +816,12 @@ int main(void)
     return 0;
 }</div>
                 <p>Will generate the following output:</p>
-                <div id="containsi" class="code-block output">Enter your first name: Barney
+                <div class="code-block output">Enter your first name: Barney
 Enter desired password: Barney007
 Password must not contain your name</div>
-                <p></p>
+                <p id="containsi">If case-insensitive comparison is to be made then
+                    use the <a href="#constainsi"><span class="mono">containsi()</span></a> method.
+                </p>
             </dd>
             <dt>bool containsi(const string& pattern) const</dt>
             <dt>bool containsi(const char* pattern) const</dt>
@@ -956,7 +973,8 @@ railway reservation, accessing a computerised library,
 order a magazine subscription from a publisher,       
 purchase items from supermarkets. In all the above    
 cases a database is accessed.</div>
-                <p id="search_all"></p>
+                <p id="search_all">A slice of the string with elements from <span class="mono"><em>i</em></span>
+                can be got using <a href="#from-pos"><span class="mono">from_pos()</span></a> </p>
             </dd>
             <dt>index_list search_all(const string& query) const</dt>
             <dt>index_list search_all(const char* query) const</dt>
@@ -1003,7 +1021,7 @@ int main(void)
                 <p>Will generate the following output:</p>
                 <div id="search_alli" class="code-block output">The word "swan" occurs at the following indices:
     [0, 27, 38, 70]</div>
-                <p></p>
+                <p>This method can be used </p>
             </dd>
             <dt>index_list search_alli(const string& query) const</dt>
             <dt>index_list search_alli(const char* query) const</dt>
@@ -1167,17 +1185,23 @@ int main(void)
 Domain name: gmail.com</div>
             </dd>
             <dt>string from_pos(size_t pos) const</dt>
+            <dt>string from_pos(size_t pos, size_t count) const</dt>
             <dd>
                 <p>
                     Creates and returns a new string object containing all the
-                    characters from the existing string after the pos index.
-                    This method can be used in place of the slice method if
-                    the slicing is to be done in such a way that all the
-                    characters after a certain given index value are required
+                    characters from the existing string from the <span class="mono"><em>pos</em></span>
+                    index. If the <span class="mono"><em>count</em></span> is also specified
+                    then returns a new string containing <span class="mono"><em>count</em></span>
+                    number of characters from the <span class="mono"><em>pos</em></span> index.
+                    This method can be used in place of the  <a href="#slice"><span class="mono">slice()</span></a>
+                    method if
+                    the slicing is to be done in such a way that all or a fixed number of
+                    characters from a certain given index value are required
                     to be present in the returned substring.
-                    If the value of pos is greater than or equal to the size of
+                    If the value of <span class="mono"><em>pos</em></span> is greater than or equal to the size of
                     the string then an <a href="#index-error" class="exception">IndexError</a>
-                    exception is thrown.
+                    exception is thrown. If the value of <span class="mono"><em>count</em></span> is zero
+                    then a <a href="#value-error" class="exception">ValueError</a> exception is thrown.
                 </p>
                 <p>
                     Parameters:
@@ -1185,6 +1209,10 @@ Domain name: gmail.com</div>
                         <li>
                             <b>pos:</b> The position from where to start
                             taking the slice.
+                        </li>
+                        <li>
+                            <b>count:</b> The number of characters from <span class="mono"><em>pos</em></span>
+                            to include in the slice.
                         </li>
                     </ul>
                 </p>
@@ -1369,9 +1397,12 @@ Host id: 0.0.0.2</div>
                     of the string are skipped. A sign ('+' or '-') if specified
                     should occur immediately before the first numeric character,
                     i.e., "-45" is valid but "-   10" isn't.
+                </p>
+                <p>
                     Calculation of the number
                     begins upon encountering the first numeric character
-                    ('0-9') after skipping the whitespace if any. During
+                    ('0-9') after skipping the whitespace if any and the
+                    sign character ('+', '-'). During
                     calculation if a non-numeric character is encountered
                     the process stops and the value is returned. If the string
                     does not contain any numeric characters then 0 is
@@ -1413,20 +1444,59 @@ int main(void)
                     of the string are skipped. A sign ('+' or '-') if specified
                     should occur immediately before the first numeric character,
                     i.e., "-45" is valid but "-   10" isn't.
+                </p>
+                <p>
                     Calculation of the number
                     begins upon encountering the first numeric character
-                    ('0-9') after skipping the whitespace if any. During
+                    ('0-9') after skipping the whitespace if any and the
+                    sign character ('+', '-'). During
                     calculation if a non-numeric character is encountered
                     the process stops and the value is returned. If the string
                     does not contain any numeric characters then 0 is
                     returned. This method works for values in the range
                     -2<sup>64</sup> to 2<sup>64</sup> - 1.
                 </p>
-                <p id="btoi">
+                <p id="stod">
                     For any number less
                     than -2<sup>64</sup>, -2<sup>64</sup> is returned and for
                     any number greater than 2<sup>64</sup> - 1, 2<sup>64</sup> - 1
                     is returned.
+                </p>
+            </dd>
+            <dt>double stod() const</dt>
+            <dd>
+                <p>
+                    This method is used to convert a numeric string containing a decimal
+                    point into a double value. The string remains unchanged. Whitespaces
+                    at the beginning of the string are skipped. A sign ('+' or '-') if
+                    specified should occur immediately before the first numeric character,
+                    i.e., "-1.742" is valid but "-   3.328" isn't.
+                </p>
+                <p>
+                    Calculation of the number
+                    begins upon encountering the first numeric character ('0'-'9') after skipping
+                    the whitespace if any and the sign character ('+', '-'). During the
+                    calculation if a non-numeric character other than '.' is encountered
+                    the process stops and the value is returned. If the <span id="stold">string</span> does not contain
+                    any numeric characters in it then 0 is returned.
+                </p>
+            </dd>
+            <dt>long double stold() const</dt>
+            <dd>
+                <p>
+                    This method is used to convert a numeric string containing a decimal
+                    point into a long double value. The string remains unchanged. Whitespaces
+                    at the beginning of the string are skipped. A sign ('+' or '-') if
+                    specified should occur immediately before the first numeric character,
+                    i.e., "-1.742" is valid but "-   3.328" isn't.
+                </p>
+                <p>
+                    Calculation of the number
+                    begins upon encountering the first numeric character ('0'-'9') after skipping
+                    the whitespace if any and the sign character ('+', '-'). During the
+                    calculation if a non-numeric character other than '.' is encountered
+                    the process stops and the value is returned. If the <span id="btoi">string</span> does not contain
+                    any numeric characters in it then 0 is returned.
                 </p>
             </dd>
             <dt>int btoi() const</dt>
@@ -1859,7 +1929,7 @@ Domain name: gmail.com</div>
             <dt>bool operator==(const string& lhs, const string& rhs)</dt>
             <dt>bool operator==(const string& lhs, const char* rhs)</dt>
             <dd>
-                <p id="concatenation-operator">
+                <p>
                     The equality operator(==) performs strict equality check
                     (case-sensitive) on two strings. The strings being compared
                     can have either the same string type or one can be of string
@@ -1871,7 +1941,7 @@ Domain name: gmail.com</div>
                     of the left operand matches each and every character of the
                     right operand. The terminating null character is not included
                     in the comparison. The comparisons are case-sensitive so
-                    'a' and 'A' are different when performing an equality check
+                    'a' and 'A' are different when <span id="concatenation-operator">performing</span> an equality check
                     using the '==' operator.
                 </p>
             </dd>
@@ -2110,27 +2180,27 @@ file.close();</div>
             <dt>std::ifstream& operator>>(std::ifstream& input, string& str)</dt>
             <dd>
                 <p>
-                    The stream insertion operator enables us to insert/read the contents
+                    The stream extraction operator enables us to extract the contents
                     of an input stream be it the standard input (keyboard) or a
                     file input stream
                     (<a href="https://en.cppreference.com/w/cpp/io/basic_ifstream" target="_blank"><em>std::ifstream</em></a>)
-                    to a string object. In the first case i.e.,
+                    and put it into a string object. In the first case i.e.,
                     when inserting the contents of the standard input (keyboard)
                     to a string object, the contents can be pushed directly into
-                    the string object using the '>>' operator as follows:
+                    the string object using the <span class="mono">'>>'</span> operator as follows:
                 </p>
                 <div class="code-block">string input;
 std::cout &lt;&lt; "Enter text: ";
 std::cin >> input;</div>
                 <p>
-                    This invoke the operator function defined for the
+                    This invokes the operator function defined for the
                     <a href="https://en.cppreference.com/w/cpp/io/basic_istream" target="_blank"><em>std::istream</em></a>
                     object and the contents of the standard input are pushed into
-                    the string object since the <em>std::cin</em> object is linked
+                    the string object since the <span class="mono"><em>std::cin</em></span> object is linked
                     to the standard input.
                 </p>
                 <p>
-                    The second function gives us the ability to push/read the
+                    The second function gives us the ability to extract the
                     contents of a file input stream
                     (<a href="https://en.cppreference.com/w/cpp/io/basic_ifstream" target="_blank"><em>std::ifstream</em></a>)
                     directly into a string object.
@@ -2244,14 +2314,14 @@ file.close()</div>
                     <span class="mono">i</span> places ahead of where the iterator is currently
                     pointing to by using the <span class="mono">[]</span> operator (offset access).
                 </p>
-                <p id="string-const-iterator">
+                <p>
                     It is returned by the methods 
                     <a href="#begin"><span class="mono">begin()</span></a> which returns
                     a <span class="mono">string::iterator</span> to the beginning of the string
                     and 
                     <a href="#end"><span class="mono">end()</span></a> which returns a
                     <span class="mono">string::iterator</span> to one character past the last
-                    character of the string which is the terminating null character.
+                    character of the <span id="string-const-iterator">string</span> which is the terminating null character.
                 </p>
             </dd>
             <dt>string::const_iterator</dt>
@@ -2304,13 +2374,13 @@ file.close()</div>
                     <span class="mono">i</span> places ahead of where the iterator is currently
                     pointing to by using the <span class="mono">[]</span> operator (offset access).
                 </p>
-                <p id="string-const-reverse-iterator">
+                <p>
                     It is returned by the methods 
                     <a href="#rbegin"><span class="mono">rbegin()</span></a> which returns
                     a <span class="mono">string::reverse_iterator</span> to the last character
                     of the string and 
                     <a href="#rend"><span class="mono">rend()</span></a> which returns a 
-                    <span class="mono">string::reverse_iterator</span> to one character before
+                    <span id="string-const-reverse-iterator" class="mono">string::reverse_iterator</span> to one character before
                     the first character of the string.
                 </p>
             </dd>
@@ -2447,12 +2517,52 @@ int main(void)
             <dt>
                 template&lt;typename T&gt;<br>
                 &nbsp;&nbsp;&nbsp;requires std::is_integral_v&lt;T&gt;<br>
-                &nbsp;&nbsp;&nbsp;string to_string(T num)
+                &nbsp;&nbsp;&nbsp;string to_string(T num)<br><br>
+            </dt>
+            <dt>
+                template&lt;typename T&gt;<br>
+                &nbsp;&nbsp;&nbsp;requires std::is_integral_v&lt;T&gt;<br>
+                &nbsp;&nbsp;&nbsp;string to_string(T num, int width)<br><br>
+            </dt>
+            <dt>
+                template&lt;typename T&gt;<br>
+                &nbsp;&nbsp;&nbsp;requires std::is_integral_v&lt;T&gt;<br>
+                &nbsp;&nbsp;&nbsp;string to_string(T num, int width, char padding_char)
             </dt>
             <dd>
                 <p>
                     Creates and returns a string representation of the integral
-                    number <em>num</em>.
+                    number <em>num</em>. There are three overloads of this function.
+                    The first one just returns the string containing the number.
+                    The second overload with an added parameter
+                    <span class="mono"><em>width</em></span> returns a string representation
+                    of <span class="mono"><em>num</em></span> with a fixed width i.e., if
+                    <span class="mono"><em>num</em></span> contains less number of digits than
+                    the specified width then the padding zeros <span class="mono">('0')</span>
+                    are added to the left of the string to make it of the desired width.
+                    The third overload takes care of the case where the padding character
+                    needs to be something other than zero. In this case, if <span class="mono"><em>num</em></span>
+                    contains less number of digits than <span class="mono"><em>width</em></span>
+                    then the string is padded to the left with
+                    <span class="mono"><em>padding_char</em></span> character.
+                </p>
+                <p>
+                    Parameters:
+                    <ul class="params">
+                        <li>
+                            <b>num:</b> The number whose string representation is desired. Can
+                            be of any integral type.
+                        </li>
+                        <li>
+                            <b>width:</b> The number of digits which are required to be in the
+                            string representation of <span class="mono"><em>num</em></span>.
+                        </li>
+                        <li>
+                            <b>padding_char:</b> The padding character to use if
+                            <span class="mono"><em>num</em></span> contains less number of digits
+                            than the <span class="mono"><em>width</em></span>.
+                        </li>
+                    </ul>
                 </p>
 <div class="code-block">#include &lt;iostream&gt;
 #include "arr_string.h"
@@ -2480,7 +2590,9 @@ int main(void)
                 template&lt;typename T&gt;<br>
                 &nbsp;&nbsp;&nbsp;requires std::is_floating_point_v&lt;T&gt;<br>
                 &nbsp;&nbsp;&nbsp;string to_string(T num)<br><br>
-                &nbsp;&nbsp;&nbsp;template&lt;typename T&gt;<br>
+            </dt>
+            <dt>
+                template&lt;typename T&gt;<br>
                 &nbsp;&nbsp;&nbsp;requires std::is_floating_point_v&lt;T&gt;<br>
                 &nbsp;&nbsp;&nbsp;string to_string(T num, int precision)
             </dt>
@@ -2672,5 +2784,182 @@ int main(void)
             indexing in exactly the same way as the string type does.
         </p>
     </div>
+    <div id="nav-bar">
+        <a href="../manual.html">Introduction</a>
+        <ul>
+            <li>
+                <a href="1.html">
+                    1. Getting Started
+                </a>
+                <ul>
+                    <li>
+                        <a href="1.html#declaring-an-empty-string">
+                            1.1 Declaring a string
+                        </a>
+                    </li>
+                    <li>
+                        <a href="1.html#printing-a-string">
+                            1.2 Printing a string
+                        </a>
+                    </li>
+                    <li>
+                        <a href="1.html#initializing-a-string">1.3 Initializing a string</a>
+                        <ul>
+                            <li>
+                                <a href="1.html#default-character">
+                                    1.3.1 Initializing using a default character
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#string-literal">
+                                    1.3.2 Initializing using a C-string literal
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#std-string">
+                                    1.3.3 Initializing using an std::string
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#copy-construct">
+                                    1.3.4 Initializing using another string object
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#move-construct">
+                                    1.3.5 Initializing by moving an existing string to the new string
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="1.html#concatenating-strings">1.4 Concatenating strings</a>
+                        <ul>
+                            <li>
+                                <a href="1.html#concatenating-two-strings">
+                                    1.4.1 Concatenating two string objects</a>
+                            </li>
+                            <li>
+                                <a href="1.html#cstring-concat">
+                                    1.4.2 Concatenating a string object and a C-string</a>
+                            </li>
+                            <li>
+                                <a href="1.html#chaining-concat">
+                                    1.4.3 Chaining the + operator
+                                </a>
+                            </li>
+                            <li>
+                                <a href="1.html#compound-assignment">
+                                    1.4.4 Compound assignment operator
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="1.html#comparing-strings">1.5 Comparing strings</a>
+                        <ul>
+                            <li><a href="1.html#comp-strings">1.5.1 Comparing two string objects for equality</a></li>
+                            <li><a href="1.html#comp-cstring">1.5.2 Equality comparison between string objects and C-strings</a></li>
+                            <li><a href="1.html#comp-case">1.5.3 Case insensitive comparison</a></li>
+                            <li><a href="1.html#comp-others">1.5.4 Other comparison operators</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="1.html#basic-manipulation">1.6 Basic string manipulation</a>
+                        <ul>
+                            <li><a href="1.html#case-manip">1.6.1 Changing the letter casing</a></li>
+                            <li><a href="1.html#reverse-manip">1.6.2 Reversing</a></li>
+                            <li><a href="1.html#collapse-manip">1.6.3 Collapsing whitespace</a></li>
+                            <li><a href="1.html#replace-manip">1.6.4 Replacing characters</a></li>
+                            <li><a href="1.html#strip-manip">1.6.5 Trimming the string</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="2.html">
+                    2. The string class
+                </a>
+                <ul>
+                    <li>
+                        <a href="2.html#member-types">
+                            2.1 Member types
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#member-functions">
+                            2.2 Member functions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#operators">
+                            2.3 Operators
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#friend-functions">
+                            2.4 Friend functions
+                        </a>
+                    </li>
+                    <li>
+                        <a href="2.html#others">
+                            2.5 Others
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="3.html">3. Deep dive</a>
+                <ul>
+                    <li><a href="3.html#extracting-substrings">3.1 Extracting substrings</a>
+                        <ul>
+                            <li><a href="3.html#slicing">3.1.1 Slicing</a></li>
+                            <li><a href="3.html#paranths-operator">3.1.2 Using the ( ) operator</a></li>
+                            <li><a href="3.html#fw-word">3.1.3 First word/Last word</a></li>
+                            <li><a href="3.html#from-pos">3.1.4 Extracting from a position</a></li>
+                            <li><a href="3.html#nlast">3.1.5 Getting n last characters</a></li>
+                            <li><a href="3.html#split">3.1.6 Split</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#iter-and-mod">3.2 Iteration and modification</a>
+                        <ul>
+                            <li><a href="3.html#iterators">3.2.1 Iterators</a></li>
+                            <li><a href="3.html#const-iterators">3.2.2 const iterators</a></li>
+                            <li><a href="3.html#reverse-iterators">3.2.3 Reverse iterators</a></li>
+                            <li><a href="3.html#const-reverse-iterators">3.2.4 const reverse iterators</a></li>
+                            <li><a href="3.html#modify-method">3.2.5 The modify method</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#numeric-operations">3.3 Numeric operations</a>
+                        <ul>
+                            <li><a href="3.html#stoi">3.3.1 String to integer</a></li>
+                            <li><a href="3.html#to-string">3.3.2 Integral values to strings</a></li>
+                            <li><a href="3.html#bstring">3.3.3 b-string from a number</a></li>
+                            <li><a href="3.html#btoi">3.3.4 Number from a b-string</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#searching">3.4 Searching</a>
+                        <ul>
+                            <li><a href="3.html#count">3.4.1 Counting characters</a></li>
+                            <li><a href="3.html#contains">3.4.2 Checking for the existence of a query string</a></li>
+                            <li><a href="3.html#count-str">3.4.3 Counting the number of occurrences of query string</a></li>
+                            <li><a href="3.html#search">3.4.4 Position of first occurrence of query string</a></li>
+                            <li><a href="3.html#search-all">3.4.5 List of all occurrences of query string</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="3.html#file-io">3.5 File I/O</a>
+                        <ul>
+                            <li><a href="3.html#istream">3.5.1 Reading from an input stream</a></li>
+                            <li><a href="3.html#getline">3.5.2 Reading contents one line at a time</a></li>
+                            <li><a href="3.html#ostream">3.5.3 Writing to an output stream</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <a href=""><b>The complete reference</b></a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="../static/script.js"></script>
 </body>
 </html>
