@@ -135,6 +135,20 @@ span.math {
     font-family: 'Latin Modern Math';
 }
 
+div#nav-bar {
+    opacity: 0;
+    visibility: none;
+    background-color: aliceblue;
+    position: fixed;
+    height: 85vh;
+    padding-inline-start: 10px;
+    padding-block-start: 20px;
+    padding-block-end: 20px;
+    top: 45px;
+    left: 0;
+    overflow-y: scroll;
+}
+
 @media(min-width: 600px) {
     body {
         font-size: 16px;
@@ -170,6 +184,13 @@ span.math {
         font-family: 'Roboto Mono', monospace;
         width: 70%;
     }
+    div#nav-bar{
+        height: 85vh;
+        width: 50%;
+        padding-inline-start: 20px;
+        padding-block-start: 20px;
+        padding-block-end: 80px;
+    }
 }
 
 div.main-title>.side-button{
@@ -178,6 +199,26 @@ div.main-title>.side-button{
     border-right: 1px solid;
     display: flex;
     flex-direction: column;
+}
+
+div.side-button:hover {
+    background-color: rgb(160, 208, 248);
+    transition: background-color 400ms;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+div.side-button:hover {
+    animation-name: rotate;
+    animation-duration: 200ms;
+    animation-timing-function: linear;
 }
 
 div.main-title > div.side-button:hover {
